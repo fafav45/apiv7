@@ -1,0 +1,18 @@
+index:
+    path: /api/v7
+    controller: App\Controller\HelpController::index
+
+login:
+  path: /api/v7/login
+  controller: App\Controller\LoginController::login
+
+allFiles:
+  path: /api/v7/files
+  controller: App\Controller\FileController::getAll
+
+
+oneFile:
+  path: /api/v7/files/{id}
+  controller: App\Controller\FileController::getOne
+  methods: [GET, POST]
+  schemes: [https, http]
