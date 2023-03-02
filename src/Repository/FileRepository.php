@@ -24,28 +24,20 @@ class FileRepository extends ServiceEntityRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        //public function __construct(ManagerRegistry $registry)
-        
         parent::__construct($registry, File::class);
-        //$cnx est l'objet Connexion, definition dans FileController
-        //$this->fm = $fm;
-        //$this->setBdd($fm->getBdd());
-        
     }
 
-    public function findAllFiles(Connexion $cnx) : ?array{
 
+    //public function findAllFiles(Connexion $cnx) : ?array{
+    public function findAllFiles(Connexion $cnx, bool $musicsCountOnly, bool $certificatesCountOnly, bool $IDsCountOnly, bool $IDPhotosCountOnly, bool $mp3Only): ?array
+    {
         $fileMgr = new FileManager($cnx);
-        $ar = $fileMgr->apiGetAll();
+        //apiGetAll(bool $musicsCountOnly=false, bool $certificatesCountOnly=false, bool $IDsCountOnly=false, bool $IDPhotosCountOnly=false, bool $getUsedOnly=false, bool $mp3Only=false) : array {
+        $ar = $fileMgr->apiGetAll($musicsCountOnly, $certificatesCountOnly, $IDsCountOnly, $IDPhotosCountOnly, false, $mp3Only);
 
         return $ar;
     }
 
-    public function findAllTest(): array
-    {
-        return array(array("id"=>"1", "name"=>"tata"),array("id"=>"2", "name"=>"titi"));
-    }
-    
     public function findOneFile(Connexion $cnx, int $id, bool $withMD5): array
     {
         $fileMgr = new FileManager($cnx);
@@ -54,13 +46,77 @@ class FileRepository extends ServiceEntityRepository
         return $ar;
     }
 
+    public function delOneFileByIdAndType(Connexion $cnx, int $id, string $type) : int
+    {
+        // test de $type
+        // studentPhotoID or teacherPhotoID
+        $authorizedTypes = array('studentPhotoID','teacherPhotoID');
+        if (!in_array($type, $authorizedTypes)) {
+            return -2;
+        }
 
-    public function setBdd(PDO $arg) {
+        $fileMgr = new FileManager($cnx);
+        //$ar = $fileMgr->apiFileDelete($id, 'candidat_id', 2);
+
+        // $candidat_id, string column, int $doc_type=photo_identité
+        // column prof_id pour prof
+        // doctype=2 pour photo
+        // doctype=1 pour CNI
+        // doctype=3,4 pour atestation
+        // doctype=5,7 pour music ind
+
+        switch($type) {
+            case 'studentPhotoID':
+                $column = 'candidat_id';
+                $doc_type = 2;
+                break;
+            case 'teacherPhotoID':
+                $column = 'prof_id';
+                $doc_type = 2;
+                break;
+            case 'studentCNI':
+                $column = 'candidat_id';
+                $doc_type = 1;
+                break;
+            case 'teacherCNI':
+                $column = 'prof_id';
+                $doc_type = 1;
+                break;
+            case 'studentMinorCertificate':
+                $column = 'candidat_id';
+                $doc_type = 3;
+                break;
+            case 'studentMajorCertificate':
+                $column = 'candidat_id';
+                $doc_type = 4;
+                break;
+        }
+
+        $count = $fileMgr->delOneFileByIdAndType($id, $column, $doc_type);
+
+        return $count;
+    }
+
+    public function delOneFileById(Connexion $cnx, int $id)
+    {
+        // test de $type
+        // studentPhotoID or teacherPhotoID
+
+        $fileMgr = new FileManager($cnx);
+
+        $count = $fileMgr->apiFileDeleteById($id);
+
+        return $count;
+    }
+
+
+    public function setBdd(PDO $arg)
+    {
         $this->bdd = $arg;
     }
 
-    public function setConnexion(Connexion $arg) {
+    public function setConnexion(Connexion $arg)
+    {
         $this->cnx = $arg;
     }
-
 }

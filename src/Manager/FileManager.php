@@ -235,17 +235,21 @@ class FileManager
 	        $myArray= $q->fetchAll(PDO::FETCH_ASSOC) ;
 	    }
 	    
-		$myrootDir = $_SERVER['DOCUMENT_ROOT'];
-		//$domaine='ins-2023';
-		$fileDir = $myrootDir. DIRECTORY_SEPARATOR . "Files" . DIRECTORY_SEPARATOR . $domaine . DIRECTORY_SEPARATOR ;
 
-		for($i = 0; $i < count($myArray); ++$i) {
-			$md5 = '';
-			$file = $fileDir . $myArray[$i]['uniq_id'] ;
-			if (file_exists($file)) {
-				$md5 = md5_file($file);
+
+		if ($all == true) {
+			$myrootDir = $_SERVER['DOCUMENT_ROOT'];
+			//$domaine='ins-2023';
+			$fileDir = $myrootDir. DIRECTORY_SEPARATOR . "Files" . DIRECTORY_SEPARATOR . $domaine . DIRECTORY_SEPARATOR ;
+
+			for($i = 0; $i < count($myArray); ++$i) {
+				$md5 = '';
+				$file = $fileDir . $myArray[$i]['uniq_id'] ;
+				if (file_exists($file)) {
+					$md5 = md5_file($file);
+				}
+				$myArray[$i]['md5']=$md5;
 			}
-			$myArray[$i]['md5']=$md5;
 		}
 
 		$myArrayTranslated = $this->replaceKeys($myArray, self::NEWKEYS);
@@ -289,11 +293,13 @@ class FileManager
 				}
 				$theItem['md5'] = $md5;
 			}
+			array_push($returnArray, $theItem);
+
 		} else {
 			$theItem = null;
 		}
-		array_push($returnArray, $theItem);
-		return $returnArray;
+		$myArrayTranslated = $this->replaceKeys($returnArray, self::NEWKEYS);
+		return $myArrayTranslated;
 	}
 	
 		/**
@@ -551,6 +557,10 @@ class FileManager
 	    
 	}
 	
+	// public function delOneFileByIdAndType( int $id, string $column, int $doc_type ) : int {
+	// 	return 0;
+	// }
+
 	/**
 	 * apiFileDelete
 	 *
@@ -559,7 +569,7 @@ class FileManager
 	 * @param  int $doc_type
 	 * @return int
 	 */
-	public function apiFileDelete( int $id, string $column, int $doc_type ) : int {
+	public function delOneFileByIdAndType( int $id, string $column, int $doc_type ) : int {
 
 		if (!is_numeric($id) || $id===0) {
 			trigger_error('FichiersManager::apiFileDelete : la valeur reçue de id n\'est pas de type numerique', E_USER_WARNING);
@@ -576,8 +586,8 @@ class FileManager
 		$count = 0;
 		$sql_file="DELETE FROM `fichiers` WHERE `$column`=:ID AND typedoc=:DOCTYPE" ;
 		$file_stmt = $this->_db->prepare($sql_file);
-		$file_stmt->bindValue(':ID', $id , \PDO::PARAM_INT ) ;
-		$file_stmt->bindValue(':DOCTYPE', $doc_type , \PDO::PARAM_INT ) ;
+		$file_stmt->bindValue(':ID', $id , PDO::PARAM_INT ) ;
+		$file_stmt->bindValue(':DOCTYPE', $doc_type , PDO::PARAM_INT ) ;
 		$bStatus = $file_stmt->execute();
 
 		if ($bStatus) {
@@ -589,7 +599,7 @@ class FileManager
 		return $count;
 	}
 
-	public function apiFileDeleteById( int $id) : int {
+	public function apiFileDeleteById(int $id) : int {
 
 		if (!is_numeric($id) || $id===0) {
 			trigger_error('FichiersManager::apiFileDeleteById : la valeur reçue de id n\'est pas de type numerique', E_USER_WARNING);
@@ -601,7 +611,7 @@ class FileManager
 		$count = 0;
 		$sql_file="DELETE FROM `fichiers` WHERE `id`=:ID" ;
 		$file_stmt = $this->_db->prepare($sql_file);
-		$file_stmt->bindValue(':ID', $id , \PDO::PARAM_INT ) ;
+		$file_stmt->bindValue(':ID', $id , PDO::PARAM_INT ) ;
 		$bStatus = $file_stmt->execute();
 
 		if ($bStatus) {

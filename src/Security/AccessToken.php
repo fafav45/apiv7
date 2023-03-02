@@ -34,7 +34,8 @@ class AccessToken {
     { 
         // à mettre ailleurs ?
 
-        define("SECRET", "ed8e871108709b93b0b200ddf19b11be14c417e75efed9d21078efe6efef4880");
+        if (!defined('SECRET')) define("SECRET", "ed8e871108709b93b0b200ddf19b11be14c417e75efed9d21078efe6efef4880");
+
         $a = func_get_args(); 
         $i = func_num_args();
         if (method_exists($this,$f='__construct'.$i)) { 
@@ -53,6 +54,9 @@ class AccessToken {
         $this->_role = $role;
         $this->_context = $context;
 
+        // Les horodatages Unix ne contiennent aucune information concernant le fuseau horaire local
+        // c'est l'heure  GMT
+        
         $this->_expiration = 3600 + time();
 
         /*
@@ -199,6 +203,7 @@ class AccessToken {
                 // expiration : 3600 en standard (1 heure). si excel, 3600 * 72 = (3 jours)
                 if ($this->_context === "MS-Excel")
                     $this->_expiration = 259200 + time();
+                    //$this->_expiration
     
                 // on recreer le payload
                 $this->_payload = json_encode([
@@ -267,7 +272,7 @@ class AccessToken {
      * @return int
      */
     public function getExpiration() : int { 
-        return $this ->_expiration;
+        return $this->_expiration;
     }
     
     /**

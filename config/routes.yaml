@@ -16,3 +16,25 @@ oneFile:
   controller: App\Controller\FileController::getOne
   methods: [GET, POST]
   schemes: [https, http]
+  requirements:
+    id: '\d+'
+
+delOneFileById:
+  path: /api/v7/files/{id}
+  controller: App\Controller\FileController::delOneFileById
+  methods: [DELETE]
+  schemes: [https, http]
+  requirements:
+    id: '\d+'
+
+  #defaults: file_id
+
+delOneFileByIdAndType:
+  path: /api/v7/files/{id}/{type}
+  controller: App\Controller\FileController::delOneFileByIdAndType
+  methods: [DELETE]
+  schemes: [https, http]
+  requirements:
+    id: '\d+'
+    type: "[a-zA-Z]+"
+  #condition: "request.attributes.get('type') in ['student_id','teacher_id'] 
