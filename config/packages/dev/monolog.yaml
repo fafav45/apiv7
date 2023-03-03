@@ -6,7 +6,9 @@ monolog:
             # Handler type
             type: rotating_file
             # Where to write the entry log
-            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            path: "%kernel.project_dir%/Logs/%kernel.environment%.log"
+            # path: "%kernel.logs_dir%/%kernel.environment%.log"
+            # kernel.project_dir,kernel.build_dir,kernel.cache_dir,kernel.logs_dir
             # Handler level
             level: debug
             max_files: 30

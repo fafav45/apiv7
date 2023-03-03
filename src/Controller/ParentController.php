@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
-use OpenApi\Annotations as OA;
 use App\Entity\AMLResponse;
 use App\Security\AccessToken;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ParentController
+class ParentController extends AbstractController
 {
     protected $connexion; // Connexion
     protected $accessToken; // string JWT

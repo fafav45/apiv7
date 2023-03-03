@@ -1,6 +1,10 @@
+#app_index:
+#    path: /
+#    controller: App\Controller\IndexController::index
+
 index:
-    path: /api/v7
-    controller: App\Controller\HelpController::index
+    path: /api/v7/
+    controller: App\Controller\IndexController::index
 
 login:
   path: /api/v7/login

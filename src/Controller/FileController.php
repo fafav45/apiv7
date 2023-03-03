@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 //class FileController extends AbstractController
+// important, car permet de recuperer des choses comme getParameters()
+// comment etendre AbstractController et parentController ?
+// -> ParentController extends AbstractController ?
 class FileController extends ParentController
 {
     protected $fileRepository;
@@ -43,8 +46,8 @@ class FileController extends ParentController
 
         $logger->info("FileController construct");
 
-        $logger->info('Hey ! I am writing in logs !!');
-        $logger->critical('Oops something bad is happening');
+        //$logger->info('Hey ! I am writing in logs !!');
+        //$logger->critical('Oops something bad is happening');
 
         $this->fileRepository = $rep; // self
         $this->connexion = $cnx; // parent
