@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use PDO;
+//use OA\Schema;
 use App\Entity\AMLResponse;
 use Psr\Log\LoggerInterface;
 use App\Repository\Connexion;
@@ -16,8 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
  * ask for a JWT (Json Web Token)
  */
 
- /**
- * @OA\Schema(
+ /*
+ * @Schema(
  *  schema="Login",
  * 	title="Login",
  * 	description="Login Model"

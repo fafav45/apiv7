@@ -5,87 +5,110 @@ namespace App\Entity;
 use OpenApi\Annotations as OA;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
+ * @OA\Schema(schema="Files", title="Files", description="File Model")
  * @ORM\Entity(repositoryClass=FileRepository::class)
- * @OA\Schema(
- *  schema="Files",
- * 	title="Files",
- * 	description="File Model"
- * )
  */
 class File
 {
+    /* * @OA\Property(type="integer")
+    */
+
     /**
+     * @OA\Property(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @OA\Property(type="integer")
      */
     private $id;
 
+    // @OA\Property(type="integer")
+
     /**
-     * @ORM\Column(type="integer")
      * @OA\Property(type="integer")
+     * @ORM\Column(type="integer")
      */
     private $school_id;
 
+    // @OA\Property(type="integer", description="0 if not concerned")
+
     /**
-     * @ORM\Column(type="integer")
      * @OA\Property(type="integer", description="0 if not concerned")
+     * @ORM\Column(type="integer")
      */
     private $candidat_id;
 
+    // @OA\Property(type="integer", description="0 if not concerned")
+
     /**
-     * @ORM\Column(type="integer")
      * @OA\Property(type="integer", description="0 if not concerned")
+     * @ORM\Column(type="integer")
      */
     private $teacher_id;
 
+    // @OA\Property(type="integer", description="0 if not concerned")
+
     /**
-     * @ORM\Column(type="integer")
      * @OA\Property(type="integer", description="0 if not concerned")
+     * @ORM\Column(type="integer")
      */
     private $entry_id;
 
+    // @OA\Property(type="string", example="MAJ_S1133_6157814ce7253.PDF")
+
     /**
-     * @ORM\Column(type="string", length=128)
      * @OA\Property(type="string", example="MAJ_S1133_6157814ce7253.PDF")
+     * @ORM\Column(type="string", length=128)
      */
     private $uniq_id;
 
+    // @OA\Property(type="string", example="ATMAJ_BAUR_Pauline.PDF")
+
     /**
-     * @ORM\Column(type="string", length=255)
      * @OA\Property(type="string", example="ATMAJ_BAUR_Pauline.PDF")
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
+    // @OA\Property(type="string", example="application/pdf")
+
     /**
-     * @ORM\Column(type="string", length=64)
      * @OA\Property(type="string", example="application/pdf")
+     * @ORM\Column(type="string", length=64)
      */
     private $type;
 
+    // @Property(type="string", example="2021-10-01")
+
     /**
-     * @ORM\Column(type="string", length=10)
      * @OA\Property(type="string", example="2021-10-01")
+     * @ORM\Column(type="string", length=10)
+
      */
     private $date;
 
+    // @OA\Property(type="integer", example="4")
+
     /**
-     * @ORM\Column(type="integer")
      * @OA\Property(type="integer", example="4")
+     * @ORM\Column(type="integer")
      */
     private $docType;
 
+    // @OA\Property(type="string", example="fc004876847f39950981460883cf4d3e")
+
     /**
-     * @ORM\Column(type="string", length=64)
      * @OA\Property(type="string", example="fc004876847f39950981460883cf4d3e")
+     * @ORM\Column(type="string", length=64)
      */
     private $md5;
 
+    // @OA\Property(type="string")
+
     /**
-     * @ORM\Column(type="string", length=255)
      * @OA\Property(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     private $comment;
 

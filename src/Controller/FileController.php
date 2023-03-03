@@ -2,6 +2,11 @@
 
 namespace App\Controller;
 
+//use OA\Get;
+//use OA\Delete;
+use OpenApi\Annotations\Get;
+use OpenApi\Annotations\Delete;
+use OpenApi\Annotations as OA;
 use Psr\Log\LoggerInterface;
 use App\Repository\Connexion;
 use App\Repository\FileRepository;
@@ -24,13 +29,22 @@ class FileController extends ParentController
     * php bin/console debug:autowiring Repository --all
     * Psr\Log\LoggerInterface, App\Controller\FileController, App\Repository\Connexion, App\Repository\FileRepository
     * extends ParentController
+    *
+    * logs ecrits dans la valeur definie dans _conf.php (ini_set("error_log", 'ins-2023.log');)
     */
-    public function __construct(FileRepository $rep, LoggerInterface $logger, Connexion $cnx)
+    public function __construct(
+        FileRepository $rep, 
+        LoggerInterface $logger, 
+        Connexion $cnx)
     {
 
         // appel du parent Controller pour les fonctions et properties communes
         parent::__construct();
-        //$this->logger->info("FileController construct");
+
+        $logger->info("FileController construct");
+
+        $logger->info('Hey ! I am writing in logs !!');
+        $logger->critical('Oops something bad is happening');
 
         $this->fileRepository = $rep; // self
         $this->connexion = $cnx; // parent
@@ -38,6 +52,8 @@ class FileController extends ParentController
         $this->logger = $logger; // parent
         //$this->custoResponse // parent
         $this->custoResponse->setobjectType("files"); // files pour FileController
+
+        //$this->logger->
 
         //dump($this->fileRepository);
         //$tutu = $this->connexion->getBdd();
@@ -56,47 +72,47 @@ class FileController extends ParentController
 
 
     /**
-* @OA\Get(
-*   path="/files",
-*   summary="Returns a list of availables files (certificates, IDs, photoIds, musics)",
-*   tags={"Files"},
-*     security={
-*         {"bearer": {}}
-*     },
-*   operationId="file_get_all",
-*
-*   @OA\Parameter(
-*       name="opt",
-*       in="query",
-*       description="option",
-*       required=false,
-*       @OA\Schema(
-*           type="string",
-*           enum={"musicsCountOnly", "certificatesCountOnly", "IDsCountOnly", "IDPhotosCountOnly", "mp3Only"}
-*       )
-*   ),
-*   @OA\Response(
-*       response=200,
-*       description="OK",
-*       @OA\JsonContent(
-* 	        allOf={
-*		        @OA\Schema(type="object", ref="#/components/schemas/Files"),
-*		        @OA\Schema(ref="#/components/schemas/Response")
-* 	        }
-*       )
-*   ),
-*   @OA\Response(
-*       response="default",
-*       description="Unexpected error",
-*       @OA\JsonContent(
-* 	        allOf={
-*		        @OA\Schema(ref="#/components/schemas/Response")
-* 	        }
-*       )
-*   )
-* )
-*/
-    public function getAll(Request $request): Response
+    * @Get(
+    *   path="/files",
+    *   summary="Returns a list of availables files (certificates, IDs, photoIds, musics)",
+    *   tags={"Files"},
+    *     security={
+    *         {"bearer": {}}
+    *     },
+    *   operationId="getAllFiles",
+    *
+    *   @OA\Parameter(
+    *       name="opt",
+    *       in="query",
+    *       description="option",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string",
+    *           enum={"musicsCountOnly", "certificatesCountOnly", "IDsCountOnly", "IDPhotosCountOnly", "mp3Only"}
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="OK",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(type="object", ref="#/components/schemas/Files"),
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response="default",
+    *       description="Unexpected error",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   )
+    * )
+    */
+    public function getAllFiles(Request $request): Response
     {
         // on recupere le token depuis le header
         $at = $request->headers->get('access-token'); // string|null
@@ -124,64 +140,68 @@ class FileController extends ParentController
             $this->custoResponse->setCount(count($fileList));
             $jsonResponse = $this->custoResponse->getJsonResponse();
 
-            $response = new JsonResponse($jsonResponse, Response::HTTP_OK, array(), false); // content, status, headers, false if already json
+            $response = new JsonResponse(
+                $jsonResponse, 
+                Response::HTTP_OK, 
+                array(), 
+                false); // content, status, headers, false if already json
 
             return $response;
         }
     }
 
     /**
-* @OA\Get(
-*   path="/files/{id}",
-*   summary="Returns a file identified by its id",
-*   tags={"Files"},
-*     security={
-*         {"bearer": {}}
-*     },
-*   operationId="file_get_one",
-*
-*   @OA\Parameter(
-*       name="id",
-*       in="path",
-*       description="file id",
-*       required=true,
-*       @OA\Schema(
-*           type="integer"
-*       )
-*   ),
-*
-*   @OA\Parameter(
-*       name="opt",
-*       in="query",
-*       description="option",
-*       required=false,
-*       @OA\Schema(
-*           type="string",
-*           enum={"MD5"}
-*       )
-*   ),
-*   @OA\Response(
-*       response=200,
-*       description="OK",
-*       @OA\JsonContent(
-* 	        allOf={
-*		        @OA\Schema(type="object", ref="#/components/schemas/Files"),
-*		        @OA\Schema(ref="#/components/schemas/Response")
-* 	        }
-*       )
-*   ),
-*   @OA\Response(
-*       response="default",
-*       description="Unexpected error",
-*       @OA\JsonContent(
-* 	        allOf={
-*		        @OA\Schema(ref="#/components/schemas/Response")
-* 	        }
-*       )
-*   )
-* )
-*/
-    public function getOne(Request $request, int $id): Response
+    * @Get(
+    *   path="/files/{id}",
+    *   summary="Returns a file identified by its id",
+    *   tags={"Files"},
+    *     security={
+    *         {"bearer": {}}
+    *     },
+    *   operationId="getOneFile",
+    *
+    *   @OA\Parameter(
+    *       name="id",
+    *       in="path",
+    *       description="file id",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *
+    *   @OA\Parameter(
+    *       name="opt",
+    *       in="query",
+    *       description="option",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string",
+    *           enum={"MD5"}
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="OK",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(type="object", ref="#/components/schemas/Files"),
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response="default",
+    *       description="Unexpected error",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   )
+    * )
+    */
+    public function getOneFile(Request $request, int $id): Response
     {
 
         // on recupere le token depuis le header
@@ -208,7 +228,11 @@ class FileController extends ParentController
                 $this->custoResponse->setStatusCode(Response::HTTP_OK);
                 $jsonResponse = $this->custoResponse->getJsonResponse();
 
-                $response = new JsonResponse($jsonResponse, Response::HTTP_OK, array(), false); // content, status, headers, false if already json
+                $response = new JsonResponse(
+                    $jsonResponse, 
+                    Response::HTTP_OK, 
+                    array(), 
+                    false); // content, status, headers, false if already json
 
                 return $response;
             } else {
@@ -221,7 +245,11 @@ class FileController extends ParentController
                 $this->custoResponse->setErrorDescription('No object found');
                 $jsonResponse = $this->custoResponse->getJsonResponse();
 
-                $response = new JsonResponse($jsonResponse, Response::HTTP_NOT_FOUND, array(), false); // content, status, headers, true if already json
+                $response = new JsonResponse(
+                    $jsonResponse, 
+                    Response::HTTP_NOT_FOUND, 
+                    array(), 
+                    false); // content, status, headers, true if already json
 
                 return $response;
             }
@@ -229,49 +257,49 @@ class FileController extends ParentController
     }
 
     /**
-* @OA\Delete(
-*   path="/files/{id}/{type}",
-*   summary="deletes a file identified by its id and type",
-*   tags={"Files"},
-*     security={
-*         {"bearer": {}}
-*     },
-*   operationId="file_delete_one",
-*   @OA\Parameter(
-*       name="id",
-*       in="path",
-*       description="student_id or teacher_id",
-*       required=true,
-*       @OA\Schema(
-*           type="integer"
-*       )
-*   ),
-*   @OA\Parameter(
-*       name="type",
-*       in="path",
-*       description="file type",
-*       required=true,
-*       @OA\Schema(
-*           type="string",
-*           enum={"studentPhotoID","teacherPhotoID"}
-*       )
-*   ),
-*   @OA\Response(
-*       response=200,
-*       description="OK",
-*       @OA\JsonContent(ref="#/components/schemas/Response"),
-*   ),
-*   @OA\Response(
-*       response="default",
-*       description="Unexpected error",
-*       @OA\JsonContent(
-* 	        allOf={
-*		        @OA\Schema(ref="#/components/schemas/Response")
-* 	        }
-*       )
-*   )
-* )
-*/
+    * @Delete(
+    *   path="/files/{id}/{type}",
+    *   summary="deletes a file identified by its id and type",
+    *   tags={"Files"},
+    *     security={
+    *         {"bearer": {}}
+    *     },
+    *   operationId="delOneFileByIdAndType",
+    *   @OA\Parameter(
+    *       name="id",
+    *       in="path",
+    *       description="student_id or teacher_id",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="type",
+    *       in="path",
+    *       description="file type",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           enum={"studentPhotoID","teacherPhotoID"}
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="OK",
+    *       @OA\JsonContent(ref="#/components/schemas/Response"),
+    *   ),
+    *   @OA\Response(
+    *       response="default",
+    *       description="Unexpected error",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   )
+    * )
+    */
     public function delOneFileByIdAndType(Request $request): JsonResponse
     {
         // on recupere le token depuis le header
@@ -289,14 +317,16 @@ class FileController extends ParentController
             return $this->returnNotAuthorized($sIsAuthorized);
         } else {
             $id = $request->attributes->get('id', 0);
-            
+
             $count = $this->fileRepository->delOneFileByIdAndType($this->connexion, $id, $fileType);
 
             // custoResponse cree dans Parent
             $this->custoResponse->setId($id);
             $this->custoResponse->setValue($count);
 
-            if($count < 0) {$this->custoResponse->setCount(0);}
+            if ($count < 0) {
+                $this->custoResponse->setCount(0);
+            }
 
             if ($count == -1) { // not found
 
@@ -305,17 +335,26 @@ class FileController extends ParentController
                 $this->custoResponse->setErrorType('No object found');
 
                 $jsonResponse = $this->custoResponse->getJsonResponse();
-                $response = new JsonResponse($jsonResponse, Response::HTTP_NOT_FOUND, array(), false); // content, status, headers, true if already json
+                $response = new JsonResponse(
+                    $jsonResponse, 
+                    Response::HTTP_NOT_FOUND, 
+                    array(), 
+                    false); // content, status, headers, true if already json
                 return $response;
 
-            } else if ($count == -2) { // type not allowed
-                    $this->custoResponse->setErrorType('Object type');
-                    $this->custoResponse->setStatusCode(Response::HTTP_BAD_REQUEST);
-                    $this->custoResponse->setErrorDescription("Option not allowed: $fileType");
+            } elseif ($count == -2) { // type not allowed
+                $this->custoResponse->setErrorType('Object type');
+                $this->custoResponse->setStatusCode(Response::HTTP_BAD_REQUEST);
+                $this->custoResponse->setErrorDescription("Option not allowed: $fileType");
 
-                    $jsonResponse = $this->custoResponse->getJsonResponse();
-                    $response = new JsonResponse($jsonResponse, Response::HTTP_BAD_REQUEST, array(), false); // content, status, headers, true if already json
-                    return $response;
+                $jsonResponse = $this->custoResponse->getJsonResponse();
+                $response = new JsonResponse(
+                    $jsonResponse, 
+                    Response::HTTP_BAD_REQUEST, 
+                    array(), 
+                    false); // content, status, headers, true if already json
+                return $response;
+
             } else { // ok
                 // custoResponse cree dans Parent
                 $this->custoResponse->setId($id);
@@ -323,46 +362,50 @@ class FileController extends ParentController
                 $this->custoResponse->setStatusCode(Response::HTTP_OK);
                 $jsonResponse = $this->custoResponse->getJsonResponse();
 
-                $response = new JsonResponse($jsonResponse, Response::HTTP_OK, array(), false); // content, status, headers, true if already json
+                $response = new JsonResponse(
+                    $jsonResponse, 
+                    Response::HTTP_OK, 
+                    array(), 
+                    false); // content, status, headers, true if already json
                 return $response;
             }
         }
     }
 
-/**
-* @OA\Delete(
-*   path="/files/{id}",
-*   summary="deletes a file identified by its id",
-*   tags={"Files"},
-*     security={
-*         {"bearer": {}}
-*     },
-*   operationId="file_delete_by_fileid",
-*   @OA\Parameter(
-*       name="id",
-*       in="path",
-*       description="",
-*       required=true,
-*       @OA\Schema(
-*           type="integer"
-*       )
-*   ),
-*   @OA\Response(
-*       response=200,
-*       description="OK",
-*       @OA\JsonContent(ref="#/components/schemas/Response"),
-*   ),
-*   @OA\Response(
-*       response="default",
-*       description="Unexpected error",
-*       @OA\JsonContent(
-* 	        allOf={
-*		        @OA\Schema(ref="#/components/schemas/Response")
-* 	        }
-*       )
-*   )
-* )
-*/    
+    /**
+    * @OA\Delete(
+    *   path="/files/{id}",
+    *   summary="deletes a file identified by its id",
+    *   tags={"Files"},
+    *     security={
+    *         {"bearer": {}}
+    *     },
+    *   operationId="delOneFileById",
+    *   @OA\Parameter(
+    *       name="id",
+    *       in="path",
+    *       description="",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="OK",
+    *       @OA\JsonContent(ref="#/components/schemas/Response"),
+    *   ),
+    *   @OA\Response(
+    *       response="default",
+    *       description="Unexpected error",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   )
+    * )
+    */
     public function delOneFileById(Request $request): JsonResponse
     {
         // on recupere le token depuis le header
@@ -375,25 +418,28 @@ class FileController extends ParentController
 
         if (strlen($sIsAuthorized)!==0) { // error
             return $this->returnNotAuthorized($sIsAuthorized);
-        } 
-        else {
+        } else {
             $id = $request->attributes->get('id', 0);
-            
+
             $count = $this->fileRepository->delOneFileById($this->connexion, $id);
 
             // custoResponse cree dans Parent
             $this->custoResponse->setId($id);
             $this->custoResponse->setValue($count);
 
-            if($count == -1) { // ko
-                
+            if ($count == -1) { // ko
+
                 $this->custoResponse->setCount(0);
                 $this->custoResponse->setStatusCode(Response::HTTP_NOT_FOUND);
                 $this->custoResponse->setErrorDescription($this->connexion->getBdd()->errorInfo());
                 $this->custoResponse->setErrorType('No object found');
 
                 $jsonResponse = $this->custoResponse->getJsonResponse();
-                $response = new JsonResponse($jsonResponse, Response::HTTP_NOT_FOUND, array(), false); // content, status, headers, true if already json
+                $response = new JsonResponse(
+                    $jsonResponse, 
+                    Response::HTTP_NOT_FOUND, 
+                    array(), 
+                    false); // content, status, headers, true if already json
                 return $response;
 
             } else { // ok
@@ -403,7 +449,11 @@ class FileController extends ParentController
                 $this->custoResponse->setStatusCode(Response::HTTP_OK);
                 $jsonResponse = $this->custoResponse->getJsonResponse();
 
-                $response = new JsonResponse($jsonResponse, Response::HTTP_OK, array(), false); // content, status, headers, true if already json
+                $response = new JsonResponse(
+                    $jsonResponse, 
+                    Response::HTTP_OK, 
+                    array(), 
+                    false); // content, status, headers, true if already json
                 return $response;
             }
         }

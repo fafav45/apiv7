@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use OpenApi\Annotations as OA;
 use App\Entity\AMLResponse;
 use App\Security\AccessToken;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,7 +55,7 @@ class ParentController
 
         return ($context);
     } // end function
-    
+
     /**
      * isApiAuthorized
      *
@@ -62,7 +63,7 @@ class ParentController
      * @param  mixed $at
      * @return string return non empty string with description if not authorized
      */
-    protected function isApiAuthorized(?string $context, ?string $at) : string
+    protected function isApiAuthorized(?string $context, ?string $at): string
     {
         $desc = "";
         if ($context === 'ajax') {
@@ -79,7 +80,7 @@ class ParentController
     } // end function
 
 
-    
+
     /**
      * returnNotAuthorized
      *

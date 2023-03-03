@@ -14,9 +14,11 @@
         "symfony/dotenv": "5.4.*",
         "symfony/flex": "^1.17|^2",
         "symfony/framework-bundle": "5.4.*",
+        "symfony/monolog-bundle": "^3.8",
         "symfony/runtime": "5.4.*",
         "symfony/var-dumper": "^5.4",
-        "symfony/yaml": "5.4.*"
+        "symfony/yaml": "5.4.*",
+        "zircote/swagger-php": "^4.7"
     },
     "config": {
         "allow-plugins": {

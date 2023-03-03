@@ -46,7 +46,7 @@ class FileRepository extends ServiceEntityRepository
         return $ar;
     }
 
-    public function delOneFileByIdAndType(Connexion $cnx, int $id, string $type) : int
+    public function delOneFileByIdAndType(Connexion $cnx, int $id, string $type): int
     {
         // test de $type
         // studentPhotoID or teacherPhotoID
@@ -65,7 +65,7 @@ class FileRepository extends ServiceEntityRepository
         // doctype=3,4 pour atestation
         // doctype=5,7 pour music ind
 
-        switch($type) {
+        switch ($type) {
             case 'studentPhotoID':
                 $column = 'candidat_id';
                 $doc_type = 2;

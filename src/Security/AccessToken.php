@@ -2,8 +2,11 @@
 
 namespace App\Security;
 
-class AccessToken {
+//use OpenApi\Annotations as OA;
+use Psr\Log\LoggerInterface;
 
+class AccessToken
+{
     private $_tokenParts = null;
     private $_accessToken = null;
     private $_header = null;
@@ -27,44 +30,53 @@ class AccessToken {
     private $_errorType;
     private $_errorDescription = null;
 
-    
 
 
-    function __construct() 
-    { 
+
+    //public function __construct(LoggerInterface $logger)
+    public function __construct()
+    {
         // à mettre ailleurs ?
+        //$logger->info("AccessToken construct");
 
-        if (!defined('SECRET')) define("SECRET", "ed8e871108709b93b0b200ddf19b11be14c417e75efed9d21078efe6efef4880");
+        if (!defined('SECRET')) {
+            define("SECRET", "ed8e871108709b93b0b200ddf19b11be14c417e75efed9d21078efe6efef4880");
+        }
 
-        $a = func_get_args(); 
+        $a = func_get_args();
         $i = func_num_args();
-        if (method_exists($this,$f='__construct'.$i)) { 
-            call_user_func_array(array($this,$f),$a); 
-        } 
-    } 
+        if (method_exists($this, $f='__construct'.$i)) {
+            call_user_func_array(array($this,$f), $a);
+        }
+    }
 
-    function __construct0() {
+    public function __construct0()
+    {
         writeLog('AccessToken', 'null');
     }
 
-    function __construct3(String $user, String $role, String $context) {
+    public function __construct3(String $user, String $role, String $context)
+    {
 
         //writeLog('AccessToken', "user: $user , role: $role , context: $context");
         $this->_user = $user;
         $this->_role = $role;
         $this->_context = $context;
+ 
+        //$logger->info("New access token for $user");
 
         // Les horodatages Unix ne contiennent aucune information concernant le fuseau horaire local
         // c'est l'heure  GMT
-        
+
         $this->_expiration = 3600 + time();
 
         /*
         expiration : 3600 en standard (1 heure)
         si excel, 3600 * 72 = (3 jours)
         */
-        if ($context === "MS-Excel")
-            $this->_expiration = 259200 + time(); // 3 jours
+        if ($context === "MS-Excel") {
+            $this->_expiration = 259200 + time();
+        } // 3 jours
 
         $this->_header = json_encode([
             'typ' => 'JWT',
@@ -101,17 +113,17 @@ class AccessToken {
         //$this->writeLog('AccessToken::JWT', $jwt);
         //writeLog('AccessToken::JWT', $jwt);
 
-        $this->_accessToken = (String)$jwt;
+        $this->_accessToken = (string)$jwt;
     }
-    
+
     /**
      * __construct1
      *
      * @param  string $accessToken
      * @return void
      */
-    function __construct1(String $accessToken) {
-
+    public function __construct1(String $accessToken)
+    {
         $this->_accessToken = $accessToken;
         $this->_tokenParts = explode('.', $this->_accessToken);
         $countParts = count($this->_tokenParts);
@@ -145,11 +157,11 @@ class AccessToken {
                 $this->_errorDescription    = 'Access Token not valid';
             }
 
-            $this->_tokenExpired=($this->_expiration > time())?false:true;
+            $this->_tokenExpired=($this->_expiration > time()) ? false : true;
 
             if ($this->_tokenExpired) {
                 //writeLog('AccessToken::Access-Token', 'EXPIRED');
-                
+
                 $this->setError();
                 //$this->_statusCode          = 401;
                 $this->_errorType           = 'Token';
@@ -166,15 +178,15 @@ class AccessToken {
             //    writeLog('AccessToken::role', $this->_role);
             //if (!is_null($this->_context))
             //    writeLog('AccessToken::context', $this->_context);
-
         } else {
             //writeLog('AccessToken::Access-Token', 'format NOT valid');
             $this->setError();
-            $this->_errorDescription    = 'Access Token format not valid';  
+            $this->_errorDescription    = 'Access Token format not valid';
         }
     }
 
-    function refresh(String $accessToken) : string {
+    public function refresh(String $accessToken): string
+    {
         $this->_accessToken = $accessToken;
         $this->_tokenParts = explode('.', $this->_accessToken);
         $countParts = count($this->_tokenParts);
@@ -185,7 +197,7 @@ class AccessToken {
             $this->_signatureProvided = $this->_tokenParts[2];
 
             $this->_payload = base64_decode($this->_payload64);
-            
+
             $this->_signature = hash_hmac('sha256', $this->_header64 . '.' . $this->_payload64, constant("SECRET"), true);
             $this->_signature64 = $this->base64UrlEncode($this->_signature);
 
@@ -201,10 +213,11 @@ class AccessToken {
 
                 $this->_expiration = 3600 + time();
                 // expiration : 3600 en standard (1 heure). si excel, 3600 * 72 = (3 jours)
-                if ($this->_context === "MS-Excel")
+                if ($this->_context === "MS-Excel") {
                     $this->_expiration = 259200 + time();
-                    //$this->_expiration
-    
+                }
+                //$this->_expiration
+
                 // on recreer le payload
                 $this->_payload = json_encode([
                     'user' => $this->_user,
@@ -225,30 +238,28 @@ class AccessToken {
 
                 // log it
                 //writeLog('AccessToken::refresh JWT', $jwt);
-                $this->_accessToken = (String)$jwt;
-
+                $this->_accessToken = (string)$jwt;
             } else {
                 //writeLog('AccessToken::signature', 'NOT valid');
                 $this->setError();
                 $this->_errorDescription    = 'Access Token not valid';
                 $this->_accessToken = null;
             }
-
         } else {// si 3 part
             $this->_accessToken = null;
         }
 
         return $this->_accessToken;
     }
-    
-    
+
+
     /**
      * base64UrlEncode
      *
      * @param  string $text
      * @return string
      */
-    private function base64UrlEncode($text) : ?string
+    private function base64UrlEncode($text): ?string
     {
         return str_replace(
             ['+', '/', '='],
@@ -256,90 +267,100 @@ class AccessToken {
             base64_encode($text)
         );
     }
-    
+
     /**
      * getAccessToken
      *
      * @return string
      */
-    public function getAccessToken() : string { 
+    public function getAccessToken(): string
+    {
         return (string)$this ->_accessToken;
     }
-    
+
     /**
      * getExpiration
      *
      * @return int
      */
-    public function getExpiration() : int { 
+    public function getExpiration(): int
+    {
         return $this->_expiration;
     }
-    
+
     /**
      * getRole
      *
      * @return int
      */
-    public function getRole() : int { 
+    public function getRole(): int
+    {
         return $this ->_role;
     }
-    
+
     /**
      * getUser
      *
      * @return string
      */
-    public function getUser() : ?String { 
+    public function getUser(): ?String
+    {
         return $this ->_user;
     }
-    
+
     /**
      * getContext
      *
      * @return string context(web, MS Excel, Postman)
      */
-    public function getContext() : ?String { 
+    public function getContext(): ?String
+    {
         return $this ->_context;
     }
-    
+
     /**
      * isTokenExpired
      *
      * @return bool
      */
-    public function isTokenExpired() : bool { 
+    public function isTokenExpired(): bool
+    {
         return $this ->_tokenExpired;
     }
-    
+
     /**
      * isSignatureValid
      *
      * @return bool
      */
-    public function isSignatureValid() : bool { 
+    public function isSignatureValid(): bool
+    {
         return $this->_signatureIsValid;
     }
 
-    public function isError() : bool { 
+    public function isError(): bool
+    {
         return $this->_error;
     }
-    
+
     /**
      * hasError
      *
      * @return bool
      */
-    public function hasError() : bool { 
+    public function hasError(): bool
+    {
         return $this->_error;
     }
 
-    protected function setError() { 
-        $this->_error = true;;
+    protected function setError()
+    {
+        $this->_error = true;
+        ;
     }
 
-    public function getErrorDescription() : ?String { 
+    public function getErrorDescription(): ?String
+    {
         return $this ->_errorDescription;
     }
-
 }
-?>

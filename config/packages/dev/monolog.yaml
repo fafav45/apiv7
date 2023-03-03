@@ -1,0 +1,18 @@
+monolog:
+    handlers:
+        # Handler name
+        main:
+            # rotation des logs
+            # Handler type
+            type: rotating_file
+            # Where to write the entry log
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            # Handler level
+            level: debug
+            max_files: 30
+            # Handler channels
+            channels: ["!event"]
+        console:
+            type:   console
+            process_psr_3_messages: false
+            channels: ["!event", "!doctrine", "!console"]
