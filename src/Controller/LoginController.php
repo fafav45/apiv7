@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use PDO;
-//use OA\Schema;
 use App\Entity\AMLResponse;
 use Psr\Log\LoggerInterface;
 use App\Repository\Connexion;
 use App\Security\AccessToken;
+use OpenApi\Annotations\Post;
+use OpenApi\Annotations as OA;
+use OpenApi\Annotations\Schema;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  * ask for a JWT (Json Web Token)
  */
 
- /*
+ /**
  * @Schema(
  *  schema="Login",
  * 	title="Login",
@@ -40,6 +42,18 @@ class LoginController
         $this->logger->info("Login");
     }
 
+/**
+* @Post(
+*   path="/login",
+*   tags={"Login"},
+*   operationId="login",
+*   security = {{"basicAuth":{}}},
+*   @OA\Response(response=200, description="Login Success"),
+*   @OA\Response(response=401, description="You are not authorized"),
+*   @OA\Response(response="default",description="Unexpected error")
+*   )
+* )
+*/
     public function login(Request $request)
     {
 
