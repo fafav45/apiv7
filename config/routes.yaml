@@ -10,16 +10,26 @@ login:
   path: /api/v7/login
   controller: App\Controller\LoginController::login
 
+allContacts:
+  path: /api/v7/contacts
+  controller: App\Controller\ContactController::getAllContacts
+
 allFiles:
   path: /api/v7/files
   controller: App\Controller\FileController::getAllFiles
 
+allSchools:
+  path: /api/v7/schools
+  controller: App\Controller\SchoolController::getAllSchools
+
+oneSchool:
+  path: /api/v7/schools/{id}
+  controller: App\Controller\SchoolController::getOneSchool
 
 oneFile:
   path: /api/v7/files/{id}
   controller: App\Controller\FileController::getOneFile
   methods: [GET, POST]
-  schemes: [https, http]
   requirements:
     id: '\d+'
 
@@ -27,18 +37,31 @@ delOneFileById:
   path: /api/v7/files/{id}
   controller: App\Controller\FileController::delOneFileById
   methods: [DELETE]
-  schemes: [https, http]
   requirements:
     id: '\d+'
 
-  #defaults: file_id
 
 delOneFileByIdAndType:
   path: /api/v7/files/{id}/{type}
   controller: App\Controller\FileController::delOneFileByIdAndType
   methods: [DELETE]
-  schemes: [https, http]
   requirements:
     id: '\d+'
     type: "[a-zA-Z]+"
-  #condition: "request.attributes.get('type') in ['student_id','teacher_id'] 
+
+# symfony 5.4.20, version mini pour cette annotation: 5.3
+when@dev:
+  docu:
+    path: /api/v7/documentation/
+    controller: App\Controller\DocController::index
+    methods: [GET]
+    #condition: "%kernel.environment% === 'dev'"
+
+peut_servir:
+    path: /legacy/doc
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        # this value can be an absolute path or an absolute URL
+        path: 'https://legacy.example.com/doc'
+        permanent: true
+

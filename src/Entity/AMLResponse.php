@@ -35,6 +35,7 @@ class AMLResponse
         return $ret;
     }
 
+
     public function setId(int $id): void
     {
         $this->id = $id;

@@ -1,0 +1,13 @@
+install swagger dans vscode
+ouvrir fenetre terminal dans bon dossier
+
+composer require zircote/swagger-php
+-> install de zircote/swagger-php dans vendor
+
+lancement :
+http://ins-2023.aml.fr/api/documentation/api.php
+
+
+Fichier cree dans http://ins-2023.aml.fr/api/swagger/swagger.json
+
+UI dans http://ins-2023.aml.fr/api/swagger/

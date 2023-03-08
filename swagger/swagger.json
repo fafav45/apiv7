@@ -1,0 +1,674 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CND Rest API",
+        "version": "7.0"
+    },
+    "servers": [
+        {
+            "url": "http://ins-2023.aml.fr/api/v7",
+            "description": "REST APIs CND"
+        },
+        {
+            "url": "https://ins-demo.cnd.info/api/v7",
+            "description": "Site Demo"
+        }
+    ],
+    "paths": {
+        "/contacts": {
+            "get": {
+                "tags": [
+                    "Contacts"
+                ],
+                "summary": "Returns a list of contacts",
+                "operationId": "getAllContacts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Contacts"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/files": {
+            "get": {
+                "tags": [
+                    "Files"
+                ],
+                "summary": "Returns a list of availables files (certificates, IDs, photoIds, musics)",
+                "operationId": "getAllFiles",
+                "parameters": [
+                    {
+                        "name": "opt",
+                        "in": "query",
+                        "description": "option",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "musicsCountOnly",
+                                "certificatesCountOnly",
+                                "IDsCountOnly",
+                                "IDPhotosCountOnly",
+                                "mp3Only"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Files"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/files/{id}": {
+            "get": {
+                "tags": [
+                    "Files"
+                ],
+                "summary": "Returns a file identified by its id",
+                "operationId": "getOneFile",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "file id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "opt",
+                        "in": "query",
+                        "description": "option",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "MD5"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Files"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Files"
+                ],
+                "summary": "deletes a file identified by its id",
+                "operationId": "delOneFileById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/files/{id}/{type}": {
+            "delete": {
+                "tags": [
+                    "Files"
+                ],
+                "summary": "deletes a file identified by its id and type",
+                "operationId": "delOneFileByIdAndType",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "student_id or teacher_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "file type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "studentPhotoID",
+                                "teacherPhotoID"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "operationId": "login",
+                "responses": {
+                    "200": {
+                        "description": "Login Success"
+                    },
+                    "401": {
+                        "description": "You are not authorized"
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                },
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ]
+            }
+        },
+        "/schools": {
+            "get": {
+                "tags": [
+                    "Schools"
+                ],
+                "summary": "Returns a list of schools",
+                "operationId": "getAllSchools",
+                "parameters": [
+                    {
+                        "name": "opt",
+                        "in": "query",
+                        "description": "options",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "usedOnly",
+                                "countOnly",
+                                "followUp",
+                                "full"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Schools"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/schools/{id}": {
+            "get": {
+                "tags": [
+                    "Schools"
+                ],
+                "operationId": "getOneSchool",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "get by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Schools"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Login": {
+                "title": "Login",
+                "description": "Login Model"
+            },
+            "Contacts": {
+                "title": "Contacts",
+                "description": "Contact Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "id_ecole": {
+                        "type": "integer"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "phoneNumber": {
+                        "type": "string"
+                    },
+                    "teacherEmail": {
+                        "type": "string"
+                    },
+                    "schoolName": {
+                        "type": "string"
+                    },
+                    "schoolEmail": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Files": {
+                "title": "Files",
+                "description": "File Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "school_id": {
+                        "type": "integer"
+                    },
+                    "candidat_id": {
+                        "description": "0 if not concerned",
+                        "type": "integer"
+                    },
+                    "teacher_id": {
+                        "description": "0 if not concerned",
+                        "type": "integer"
+                    },
+                    "entry_id": {
+                        "description": "0 if not concerned",
+                        "type": "integer"
+                    },
+                    "uniq_id": {
+                        "type": "string",
+                        "example": "MAJ_S1133_6157814ce7253.PDF"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "ATMAJ_BAUR_Pauline.PDF"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "application/pdf"
+                    },
+                    "date": {
+                        "type": "string",
+                        "example": "2021-10-01"
+                    },
+                    "docType": {
+                        "type": "integer",
+                        "example": "4"
+                    },
+                    "md5": {
+                        "type": "string",
+                        "example": "fc004876847f39950981460883cf4d3e"
+                    },
+                    "comment": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Error": {
+                "title": "Error",
+                "properties": {
+                    "Error": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Common": {
+                "title": "Common",
+                "properties": {
+                    "Common": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "method": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "value": {
+                                    "type": "string"
+                                },
+                                "count": {
+                                    "type": "integer"
+                                },
+                                "type": {
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Header": {
+                "title": "Header",
+                "properties": {
+                    "objectType": {
+                        "type": "string"
+                    },
+                    "statusCode": {
+                        "type": "integer"
+                    },
+                    "statusMessage": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Response": {
+                "title": "Response",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Header"
+                    },
+                    {
+                        "$ref": "#/components/schemas/Error"
+                    },
+                    {
+                        "$ref": "#/components/schemas/Common"
+                    }
+                ]
+            },
+            "Schools": {
+                "title": "Schools",
+                "description": "School Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "additionalAddress": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "postalCode": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "readonly": {
+                        "type": "integer"
+                    },
+                    "validationDate": {
+                        "type": "string"
+                    },
+                    "lastConnectionDate": {
+                        "type": "string"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "count": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}

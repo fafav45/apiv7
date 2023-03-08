@@ -97,14 +97,14 @@ class FileRepository extends ServiceEntityRepository
         return $count;
     }
 
-    public function delOneFileById(Connexion $cnx, int $id)
+    public function delOneFileById(Connexion $cnx, int $id, bool $bPhysically=false)
     {
-        // test de $type
-        // studentPhotoID or teacherPhotoID
 
         $fileMgr = new FileManager($cnx);
-
         $count = $fileMgr->apiFileDeleteById($id);
+
+        // si physically=true, alors on détruit également le fichier physique
+        if($count===1 && $bPhysically===true) {}
 
         return $count;
     }
