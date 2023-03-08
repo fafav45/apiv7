@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
 
 # redirect API requests to public directory
-# not public et not swagger
+# not public et not swagger  
 RewriteCond %{REQUEST_URI} !public/
 RewriteCond %{REQUEST_URI} !swagger/
 RewriteRule "(.*)" public/$1 [L]

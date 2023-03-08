@@ -8,4 +8,5 @@
 /var/
 /vendor/
 /tools/
+/Logs/*
 ###< symfony/framework-bundle ###
