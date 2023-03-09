@@ -12,8 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class File
 {
-    /* * @OA\Property(type="integer")
-    */
+
 
     /**
      * @OA\Property(type="integer")

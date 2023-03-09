@@ -55,14 +55,49 @@ delOneFileByIdAndType:
     type: "[a-zA-Z]+"
 
 # -------------------- schools  -----------------------
+
 allSchools:
   path: /api/v7/schools
   controller: App\Controller\SchoolController::getAllSchools
+  methods: [GET]
 
 oneSchool:
   path: /api/v7/schools/{id}
   controller: App\Controller\SchoolController::getOneSchool
+  methods: [GET]
+  requirements:
+    id: '\d+'
 
+# -------------------- teachers  -----------------------
+
+teacherGetAll:
+  path: /api/v7/teachers
+  controller: App\Controller\TeacherController::teacherGetAll
+  methods: [GET]
+
+
+teacherGetById:
+  path: /api/v7/teachers/{id}
+  # controller: App\Controller\TeacherController::teacherGetById
+  controller: App\Controller\TeacherController::teacherGetAll
+  methods: [GET]
+  requirements:
+    id: '\d+'
+
+teachersPut:
+  path: /api/v7/teachers/{id}/{type}/{value}
+  controller: App\Controller\TeacherController::teachersPut
+  methods: [PUT]
+  requirements:
+    id: '\d+'
+
+teachersDelete:
+  path: /api/v7/teachers/{id}
+  controller: App\Controller\TeacherController::teachersDelete
+  methods: [DELETE]
+  requirements:
+    id: '\d+'
+    
 # ------------------ documentation  --------------------
 
 # symfony 5.4.20, version mini pour cette annotation: 5.3

@@ -528,7 +528,7 @@
                     "Teachers"
                 ],
                 "summary": "Returns a list of danse teachers",
-                "operationId": "teacher_get_all",
+                "operationId": "teacherGetAll",
                 "parameters": [
                     {
                         "name": "opt",
@@ -591,7 +591,7 @@
                     "Teachers"
                 ],
                 "summary": "Returns a danse teacher identified by its Id",
-                "operationId": "teacher_get_byId",
+                "operationId": "teacherGetById",
                 "parameters": [
                     {
                         "name": "id",
@@ -647,7 +647,7 @@
                     "Teachers"
                 ],
                 "summary": "Removes a danse teacher identified by its Id",
-                "operationId": "teachers_delete",
+                "operationId": "teachersDelete",
                 "parameters": [
                     {
                         "name": "id",
@@ -698,7 +698,7 @@
                     "Teachers"
                 ],
                 "summary": "Updates a danse teacher identified by its Id, with the type and its new value",
-                "operationId": "teachers_put",
+                "operationId": "teachersPut",
                 "parameters": [
                     {
                         "name": "id",

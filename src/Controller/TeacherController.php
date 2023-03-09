@@ -2,22 +2,38 @@
 
 namespace App\Controller;
 
-use OpenApi\Annotations\Put;
-use OpenApi\Annotations\Delete;
 use OpenApi\Annotations\Get;
+use OpenApi\Annotations\Put;
+use Psr\Log\LoggerInterface;
+use App\Repository\Connexion;
 use OpenApi\Annotations as OA;
+use OpenApi\Annotations\Delete;
+use App\Repository\TeacherRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class TeacherController extends ParentController
 {
+    protected $teacherRepository;
 
-    public function index(): JsonResponse
+    public function __construct(
+        TeacherRepository $rep,
+        LoggerInterface $logger, 
+        Connexion $cnx)
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/TeacherController.php',
-        ]);
+
+        // appel du parent Controller pour les fonctions et properties communes
+        parent::__construct();
+
+        $logger->info("TeacherController construct");
+
+        $this->teacherRepository = $rep; // self
+        $this->connexion = $cnx; // parent
+        $this->teacherRepository->setConnexion($cnx);
+        $this->logger = $logger; // parent
+        $this->custoResponse->setobjectType("teachers"); // files pour FileController
     }
 
 /**
@@ -28,7 +44,7 @@ class TeacherController extends ParentController
 *     security={
 *         {"bearer": {}}
 *     },
-*   operationId="teacher_get_all",
+*   operationId="teacherGetAll",
 *
 *   @OA\Parameter(
 *       name="opt",
@@ -61,8 +77,55 @@ class TeacherController extends ParentController
 *   )
 * )
 */
-public function teacher_get_all() {
-    // nothing
+public function teacherGetAll(Request $request): Response {
+
+    // on recupere le token depuis le header
+    $at = $request->headers->get('access-token'); // string|null
+
+    // recup du context par fonction (parent)
+    $context = $this->getApiContext($request); // ex: PostmanRuntime/7.26.8
+
+    $sIsAuthorized = $this->isApiAuthorized($context, $at);
+
+    if (strlen($sIsAuthorized)!==0) {
+        return $this->returnNotAuthorized($sIsAuthorized);
+    } else { // pas d'erreur
+
+        // enum={"followUp", "duplicates", "usedOnly"}
+        $usedOnly = (bool)$request->query->get('usedOnly', 0);
+        if ($usedOnly) {$this->logger->info("usedOnly option");}
+        $followUp = (bool)$request->query->get('followUp', 0);
+        if ($followUp) {$this->logger->info("followUp option");}
+        $duplicates = (bool)$request->query->get('duplicates', 0);
+        if ($duplicates) {$this->logger->info("duplicates option");}
+
+        $id = (int)$request->attributes->get('id', 0);
+        if($id !==0) {
+            $this->logger->info("id=$id");
+            $this->custoResponse->setId($id);
+        }
+
+        if ($followUp) {
+            $teacherList = $this->teacherRepository->apiGetFollowUp();
+        } else if ($duplicates) {
+            $teacherList = $this->teacherRepository->apiDuplicates();
+        } else {
+            $teacherList = $this->teacherRepository->apiGetList($id, $usedOnly);
+        }
+
+        $this->custoResponse->setData($teacherList);
+        $this->custoResponse->setCount(count($teacherList));
+        $jsonResponse = $this->custoResponse->getJsonResponse();
+
+        $response = new JsonResponse(
+            $jsonResponse, 
+            Response::HTTP_OK, 
+            array(), 
+            false); // content, status, headers, false if already json
+
+        return $response;
+    }
+    
 }
 
 
@@ -75,7 +138,7 @@ public function teacher_get_all() {
 *     security={
 *         {"bearer": {}}
 *     },
-*   operationId="teacher_get_byId",
+*   operationId="teacherGetById",
 *   @OA\Parameter(
 *       name="id",
 *       in="path",
@@ -106,8 +169,9 @@ public function teacher_get_all() {
 *   )
 * )
 */
-public function teacher_get_byId() {
+public function teacherGetById(Request $request): Response {
     // nothing
+    return new Response;
 }
 
 /* --------- PUT --------------- */
@@ -120,7 +184,7 @@ public function teacher_get_byId() {
 *     security={
 *         {"bearer": {}}
 *     },
-*   operationId="teachers_put",
+*   operationId="teachersPut",
 *   @OA\Parameter(
 *       name="id",
 *       in="path",
@@ -174,8 +238,29 @@ public function teacher_get_byId() {
 *   )
 * )
 */
-public function teachers_put() {
-    // nothing
+public function teachersPut(Request $request): Response {
+
+    // $arrayAccept=array('cnd', 'cni','photo','card','cndPaid','comment' );
+
+    // on recupere le token depuis le header
+    $at = $request->headers->get('access-token'); // string|null
+
+    // recup du context par fonction (parent)
+    $context = $this->getApiContext($request); // ex: PostmanRuntime/7.26.8
+
+    $sIsAuthorized = $this->isApiAuthorized($context, $at);
+
+    if (strlen($sIsAuthorized)!==0) {
+        return $this->returnNotAuthorized($sIsAuthorized);
+    } else {
+
+        //TODO
+
+        return new Response;
+
+
+    }
+
 }
 
 /* --------- DELETE --------------- */
@@ -188,7 +273,7 @@ public function teachers_put() {
 *     security={
 *         {"bearer": {}}
 *     },
-*   operationId="teachers_delete",
+*   operationId="teachersDelete",
 *   @OA\Parameter(
 *       name="id",
 *       in="path",
@@ -214,7 +299,25 @@ public function teachers_put() {
 *   )
 * )
 */
-    public function teachers_delete() {
-        // nothing
+    public function teachersDelete(Request $request): Response {
+        
+    // on recupere le token depuis le header
+    $at = $request->headers->get('access-token'); // string|null
+
+    // recup du context par fonction (parent)
+    $context = $this->getApiContext($request); // ex: PostmanRuntime/7.26.8
+
+    $sIsAuthorized = $this->isApiAuthorized($context, $at);
+
+    if (strlen($sIsAuthorized)!==0) {
+        return $this->returnNotAuthorized($sIsAuthorized);
+    } else {
+
+        // TODO
+
+        return new Response;
+
+
+    }
     }
 }
