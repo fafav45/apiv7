@@ -67,6 +67,11 @@ class DocController extends AbstractController
             Response::HTTP_OK,
             []
         );
+
+        /*
+        * from v7
+        * ./vendor/bin/openapi src/entity src/controller -f json -o -o ./swagger/swagger.json
+        */
     }
 
 

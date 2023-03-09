@@ -2,7 +2,6 @@
 
 namespace App\Security;
 
-//use OpenApi\Annotations as OA;
 use Psr\Log\LoggerInterface;
 
 class AccessToken

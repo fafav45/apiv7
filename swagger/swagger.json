@@ -330,6 +330,77 @@
                 ]
             }
         },
+        "/params": {
+            "get": {
+                "tags": [
+                    "Param"
+                ],
+                "summary": "Returns a list of the contest parameters",
+                "operationId": "getAllParams",
+                "responses": {
+                    "200": {
+                        "description": "all params",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "all parameters",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Param"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/params/0/{name}": {
+            "get": {
+                "tags": [
+                    "Param"
+                ],
+                "summary": "Returns a contest parameter identified by its name",
+                "operationId": "getParamByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "param name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "parameter",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "one parameters",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Param"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/schools": {
             "get": {
                 "tags": [
@@ -450,6 +521,267 @@
                     }
                 ]
             }
+        },
+        "/teachers": {
+            "get": {
+                "tags": [
+                    "Teachers"
+                ],
+                "summary": "Returns a list of danse teachers",
+                "operationId": "teacher_get_all",
+                "parameters": [
+                    {
+                        "name": "opt",
+                        "in": "query",
+                        "description": "option",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "followUp",
+                                "duplicates",
+                                "usedOnly"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Teachers"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/teachers/{id}": {
+            "get": {
+                "tags": [
+                    "Teachers"
+                ],
+                "summary": "Returns a danse teacher identified by its Id",
+                "operationId": "teacher_get_byId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "teacher id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Teachers"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Teachers"
+                ],
+                "summary": "Removes a danse teacher identified by its Id",
+                "operationId": "teachers_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "teacher id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/teachers/{id}/{type}/{value}": {
+            "put": {
+                "tags": [
+                    "Teachers"
+                ],
+                "summary": "Updates a danse teacher identified by its Id, with the type and its new value",
+                "operationId": "teachers_put",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "teacher id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "operation type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "cnd",
+                                "cni",
+                                "photo",
+                                "card",
+                                "cndPaid",
+                                "comment"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "in": "path",
+                        "description": "operation value",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Not Modified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -488,6 +820,129 @@
                     },
                     "city": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Entries": {
+                "title": "Entries",
+                "description": "Entries Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "class_id": {
+                        "type": "integer"
+                    },
+                    "style_id": {
+                        "type": "integer"
+                    },
+                    "categorie_id": {
+                        "type": "integer"
+                    },
+                    "track": {
+                        "type": "integer"
+                    },
+                    "duration": {
+                        "type": "string"
+                    },
+                    "placement": {
+                        "type": "string"
+                    },
+                    "school_id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "song": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "author": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "teacher_id": {
+                        "type": "integer"
+                    },
+                    "isNational": {
+                        "description": "0:false, 1:true",
+                        "type": "integer"
+                    },
+                    "receivedMP3": {
+                        "description": "0:false, 1:true",
+                        "type": "integer"
+                    },
+                    "styleName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "divisionName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "categoryName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "teacherLastName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "teacherFirstName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isStyleActive": {
+                        "description": "style is active",
+                        "type": "integer"
+                    },
+                    "type_id": {
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "entryType": {
+                        "type": "String",
+                        "example": "individual"
+                    },
+                    "editDate": {
+                        "type": "String"
+                    },
+                    "validatedMP3": {
+                        "description": "0=false, 1=true",
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "comment": {
+                        "type": "String",
+                        "nullable": true
+                    },
+                    "nbCandidates": {
+                        "description": "between 1 and 12",
+                        "type": "integer"
+                    },
+                    "schoolName": {
+                        "type": "String"
+                    },
+                    "mp3Name": {
+                        "description": "only used for followUp tool",
+                        "type": "String",
+                        "example": "GRP11.MP3",
+                        "nullable": true
+                    },
+                    "mp3_id": {
+                        "description": "only used for followUp tool",
+                        "type": "integer",
+                        "example": "3",
+                        "nullable": true
+                    },
+                    "mp3Date": {
+                        "description": "upload date, only used for followUp tool",
+                        "type": "String",
+                        "example": "2021-12-02",
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -540,6 +995,87 @@
                     },
                     "comment": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Musics": {
+                "title": "Musics",
+                "description": "Musics Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "song": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "duration": {
+                        "type": "string"
+                    },
+                    "schoolName": {
+                        "type": "String"
+                    },
+                    "teacherLastName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "validatedMP3": {
+                        "description": "0=false, 1=true",
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "styleName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "categoryName": {
+                        "type": "string",
+                        "example": "Balet",
+                        "nullable": true
+                    },
+                    "comment": {
+                        "type": "String",
+                        "example": "Preparatory",
+                        "nullable": true
+                    },
+                    "mp3Name": {
+                        "description": "only used for followUp tool",
+                        "type": "String",
+                        "example": "GRP11.MP3",
+                        "nullable": true
+                    },
+                    "mp3_id": {
+                        "description": "only used for followUp tool",
+                        "type": "integer",
+                        "example": "3",
+                        "nullable": true
+                    },
+                    "mp3Date": {
+                        "description": "upload date, only used for followUp tool",
+                        "type": "String",
+                        "example": "2021-12-02",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Param": {
+                "title": "Param",
+                "description": "Parameters Model",
+                "properties": {
+                    "param": {
+                        "type": "string"
+                    },
+                    "valeur": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
                     }
                 },
                 "type": "object"
@@ -660,6 +1196,223 @@
                         "type": "string"
                     },
                     "count": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Students": {
+                "title": "Students",
+                "description": "Student Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "birthday": {
+                        "description": "ISO format",
+                        "type": "string",
+                        "example": "1989-08-11"
+                    },
+                    "age": {
+                        "type": "integer"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "additionalAddress": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "postalCode": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phoneNumber1": {
+                        "type": "string"
+                    },
+                    "phoneNumber2": {
+                        "type": "string"
+                    },
+                    "genre": {
+                        "description": "F:Female, M:Male",
+                        "type": "string"
+                    },
+                    "valid": {
+                        "description": "CNI validated",
+                        "type": "string"
+                    },
+                    "cndPaid": {
+                        "description": "paid memberShip",
+                        "type": "number"
+                    },
+                    "indPaid": {
+                        "description": "paid individual",
+                        "type": "number"
+                    },
+                    "duoPaid": {
+                        "description": "paid duet",
+                        "type": "number"
+                    },
+                    "grpPaid": {
+                        "description": "paid group",
+                        "type": "number"
+                    },
+                    "cndMember": {
+                        "description": "memberShip, 1=true, 0=false",
+                        "type": "integer"
+                    },
+                    "digitalPrint": {
+                        "type": "string"
+                    },
+                    "school_id": {
+                        "type": "integer"
+                    },
+                    "validatedPhoto": {
+                        "type": "integer"
+                    },
+                    "schoolName": {
+                        "type": "string"
+                    },
+                    "cndBoardMember": {
+                        "description": "boardMemberShip, 1=true, 0=false",
+                        "type": "integer"
+                    },
+                    "editDate": {
+                        "type": "string",
+                        "example": "2021-11-14 20:05:19"
+                    },
+                    "minorCertificate": {
+                        "description": "validation, 1=true, 0=false",
+                        "type": "integer"
+                    },
+                    "majorCertificate": {
+                        "description": "validation, 1=true, 0=false",
+                        "type": "integer"
+                    },
+                    "sentCard": {
+                        "description": "1=true, 0=false",
+                        "type": "integer"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "nbFiles": {
+                        "description": "number of attached files",
+                        "type": "integer"
+                    },
+                    "nb_individuals": {
+                        "description": "number of individual entries",
+                        "type": "integer"
+                    },
+                    "nb_duets": {
+                        "description": "number of duet entries",
+                        "type": "integer"
+                    },
+                    "nb_groups": {
+                        "description": "number of group entries",
+                        "type": "integer"
+                    },
+                    "nb_entries": {
+                        "description": "number of entries",
+                        "type": "integer"
+                    },
+                    "schoolPostalCode": {
+                        "type": "string"
+                    },
+                    "alreadyPaid": {
+                        "description": "found in other school",
+                        "type": "integer"
+                    },
+                    "minorCertificateName": {
+                        "type": "string"
+                    },
+                    "majorCertificateName": {
+                        "type": "string"
+                    },
+                    "minorCertificate_id": {
+                        "type": "integer"
+                    },
+                    "majorCertificate_id": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Teachers": {
+                "title": "Teachers",
+                "description": "Teacher Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "phoneNumber": {
+                        "type": "string"
+                    },
+                    "cndPaid": {
+                        "type": "number"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "school_id": {
+                        "type": "integer"
+                    },
+                    "cndMember": {
+                        "type": "integer"
+                    },
+                    "digitalPrint": {
+                        "type": "string"
+                    },
+                    "nbFiles": {
+                        "type": "integer"
+                    },
+                    "schoolName": {
+                        "type": "string"
+                    },
+                    "editDate": {
+                        "type": "string"
+                    },
+                    "sentCard": {
+                        "type": "integer"
+                    },
+                    "validatedPhoto": {
+                        "type": "integer"
+                    },
+                    "validatedBirthday": {
+                        "type": "integer"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "alreadyPaid": {
+                        "type": "integer"
+                    },
+                    "photoName": {
+                        "type": "string"
+                    },
+                    "cniName": {
+                        "type": "string"
+                    },
+                    "photo_id": {
+                        "type": "integer"
+                    },
+                    "cni_id": {
                         "type": "integer"
                     }
                 },

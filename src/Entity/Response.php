@@ -49,5 +49,5 @@ use OpenApi\Annotations as OA;
  * )
  * 
  */
-class Response {}
+    class Response {}
  ?>

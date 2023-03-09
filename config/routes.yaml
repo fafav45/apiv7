@@ -6,25 +6,31 @@ index:
     path: /api/v7/
     controller: App\Controller\IndexController::index
 
+# ------------------ login  -------------------------
+
 login:
   path: /api/v7/login
   controller: App\Controller\LoginController::login
 
+# ------------------ param  -------------------------
+
+allParams:
+  path: /api/v7/params
+  controller: App\Controller\ParamController::getAllParams
+
+paramByName:
+  path: /api/v7/params/0/{name}
+  controller: App\Controller\ParamController::getParamByName
+
+# ------------------ contacts  ----------------------
 allContacts:
   path: /api/v7/contacts
   controller: App\Controller\ContactController::getAllContacts
 
+# -------------------- files  -----------------------
 allFiles:
   path: /api/v7/files
   controller: App\Controller\FileController::getAllFiles
-
-allSchools:
-  path: /api/v7/schools
-  controller: App\Controller\SchoolController::getAllSchools
-
-oneSchool:
-  path: /api/v7/schools/{id}
-  controller: App\Controller\SchoolController::getOneSchool
 
 oneFile:
   path: /api/v7/files/{id}
@@ -40,7 +46,6 @@ delOneFileById:
   requirements:
     id: '\d+'
 
-
 delOneFileByIdAndType:
   path: /api/v7/files/{id}/{type}
   controller: App\Controller\FileController::delOneFileByIdAndType
@@ -49,6 +54,17 @@ delOneFileByIdAndType:
     id: '\d+'
     type: "[a-zA-Z]+"
 
+# -------------------- schools  -----------------------
+allSchools:
+  path: /api/v7/schools
+  controller: App\Controller\SchoolController::getAllSchools
+
+oneSchool:
+  path: /api/v7/schools/{id}
+  controller: App\Controller\SchoolController::getOneSchool
+
+# ------------------ documentation  --------------------
+
 # symfony 5.4.20, version mini pour cette annotation: 5.3
 when@dev:
   docu:
@@ -56,6 +72,8 @@ when@dev:
     controller: App\Controller\DocController::index
     methods: [GET]
     #condition: "%kernel.environment% === 'dev'"
+
+# ---------------------- other  ------------------------
 
 peut_servir:
     path: /legacy/doc

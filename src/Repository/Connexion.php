@@ -12,6 +12,7 @@ class Connexion
     private $subDomain;
     private $confRegion;
     private $language;
+    private $iniRegion;
 
 
     public function __construct()
@@ -19,9 +20,13 @@ class Connexion
         $this->myrootDir = $_SERVER['DOCUMENT_ROOT'] ;
         $this->subDomain = $this->getCountryDomain();
         $this->confRegion = $this->myrootDir.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.$this->subDomain."_conf.php";
+        $this->iniRegion = $this->myrootDir.DIRECTORY_SEPARATOR.'parametres'.DIRECTORY_SEPARATOR.$this->subDomain.".ini";
 
         if (!file_exists($this->confRegion)) {
             dd("Region Configuration file does not exist !");
+        }
+        if (!file_exists($this->iniRegion)) {
+            dd("Region Parameter file does not exist !");
         }
 
         require($this->confRegion);
@@ -50,6 +55,10 @@ class Connexion
     public function getConfRegion()
     {
         return $this->confRegion;
+    }
+    public function getIniRegion()
+    {
+        return $this->iniRegion;
     }
 
     public function getMyrootDir()
