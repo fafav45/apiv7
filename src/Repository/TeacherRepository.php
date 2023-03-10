@@ -31,7 +31,7 @@ class TeacherRepository extends ServiceEntityRepository
      */
     public function apiGetList(int $id=0, $usedOnly=false) : ?array {
         $teacherMgr = new TeacherManager($this->cnx);
-        $teacherList = $teacherMgr->apiGetList($id, false);
+        $teacherList = $teacherMgr->apiGetList($id, $usedOnly);
         return $teacherList;
     }
    
@@ -56,6 +56,21 @@ class TeacherRepository extends ServiceEntityRepository
         $teacherList = $teacherMgr->apiDuplicates();
         return $teacherList;
     }   
+    
+    /**
+     * teachersPut
+     *
+     * @param  int $id
+     * @param  string $type
+     * @param  mixed $value
+     * @param  mixed $typeOf
+     * @return int
+     */
+    public function teachersPut(int $id, string $type, $value, $typeOf) : int {
+        $teacherMgr = new TeacherManager($this->cnx);
+        $iStatus = $teacherMgr->apiTeacherPut($id, $type, $value, $typeOf);
+        return $iStatus;
+    }
  
     public function setConnexion(Connexion $arg)
     {

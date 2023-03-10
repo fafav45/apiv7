@@ -83,10 +83,26 @@ class AMLResponse
      * Set the value of statusCode
      *
      * @return  void
+     */    
+    /**
+     * setStatusCode
+     *
+     * @param  mixed $statusCode
+     * @return void
      */
     public function setStatusCode(int $statusCode): void
     {
         $this->statusCode = $statusCode;
+    }
+    
+    /**
+     * getStatusCode
+     *
+     * @return int
+     */
+    public function getStatusCode(): int
+    {
+        return (int)$this->statusCode;
     }
 
 
@@ -157,5 +173,23 @@ class AMLResponse
         }
 
         return $context;
+    }
+
+    /**
+     * Get the value of type
+     */ 
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @return  self
+     */ 
+    public function setType($type) : void
+    {
+        $this->type = $type;
     }
 }

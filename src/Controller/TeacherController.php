@@ -7,6 +7,7 @@ use OpenApi\Annotations\Put;
 use Psr\Log\LoggerInterface;
 use App\Repository\Connexion;
 use OpenApi\Annotations as OA;
+use App\Manager\TeacherManager;
 use OpenApi\Annotations\Delete;
 use App\Repository\TeacherRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -240,8 +241,6 @@ public function teacherGetById(Request $request): Response {
 */
 public function teachersPut(Request $request): Response {
 
-    // $arrayAccept=array('cnd', 'cni','photo','card','cndPaid','comment' );
-
     // on recupere le token depuis le header
     $at = $request->headers->get('access-token'); // string|null
 
@@ -254,9 +253,111 @@ public function teachersPut(Request $request): Response {
         return $this->returnNotAuthorized($sIsAuthorized);
     } else {
 
-        //TODO
+        $arrayAccept=array('CND','VALCND','CNI','VALCNI','PHOTO','VALPHOTO','CARD','VALCARD','CNDPAID','COMMENT' );
 
-        return new Response;
+        $id = (int)$request->attributes->get('id', 0);
+        $type = $request->attributes->get('type', '');
+        $value = $request->attributes->get('value', '');
+
+        $this->logger->info("id: $id");
+        $this->logger->info("type: $type");
+        $this->logger->info("value: $value");
+
+        $this->custoResponse->setId($id);
+        $this->custoResponse->setValue($value);
+        $this->custoResponse->setType($type);
+
+        if (!in_array(strtoupper($type), $arrayAccept)) {
+
+            $this->custoResponse->setErrorDescription("Operation Not Allowed");
+            $this->custoResponse->setErrorType("Operation");
+            $this->custoResponse->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
+
+            $jsonResponse = $this->custoResponse->getJsonResponse();
+
+            $response = new JsonResponse(
+                $jsonResponse, 
+                Response::HTTP_METHOD_NOT_ALLOWED, 
+                array(), 
+                false); // content, status, headers, false if already json
+            return $response;
+
+
+        } else {
+
+            $leType = $type;
+            $leTypeOf = 'int';
+            $isInputOK = true;
+            switch ( strtoupper($type) ) {
+                case 'CNDPAID':
+                    $leType='pcnd';
+                    $leTypeOf='string';
+                    if (!is_numeric($value)) {
+                        $isInputOK = false;
+                    }
+                    break;
+                case 'CNI':
+                case 'VALCNI':
+                    $leType='valide';
+                    if (!is_numeric($value)) {
+                        $isInputOK = false;
+                    }
+                    break;
+                case 'COMMENT':
+                    $leTypeOf='string';
+                    break;
+                case 'PHOTO':
+                case 'VALPHOTO':
+                    $leType='photo';
+                    if (!is_numeric($value)) {
+                        $isInputOK = false;
+                    }
+                    break;
+                case 'CARD':
+                case 'VALCARD':
+                    $leType='carte';
+                    if (!is_numeric($value)) {
+                        $isInputOK = false;
+                    }
+                    break;
+                case 'CND':
+                case 'VALCND':
+                    $leType='cnd';
+                    if (!is_numeric($value)) {
+                        $isInputOK = false;
+                    }
+                    break; 
+            }
+
+            $this->logger->debug("leType: $leType");
+            $this->logger->debug("leTypeOf: $leTypeOf");
+
+            if ($isInputOK === false) {
+                $this->custoResponse->setErrorDescription("$type has not a numeric value !");
+                $this->custoResponse->setErrorType("Wrong type value");
+                $this->custoResponse->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED);
+            } else {
+
+                $teacherStatus = $this->teacherRepository->teachersPut($id, $leType, $value, $leTypeOf);
+
+                if ($teacherStatus === -1) {
+                    $this->custoResponse->setErrorDescription($this->connexion->getBdd()->errorInfo());
+                    $this->custoResponse->setErrorType("database error");
+                    $this->custoResponse->setStatusCode(Response::HTTP_NOT_MODIFIED);
+                } else {
+                    $this->custoResponse->setCount($teacherStatus);
+                    $this->custoResponse->setStatusCode(Response::HTTP_OK);
+                }
+            }
+        }
+        $jsonResponse = $this->custoResponse->getJsonResponse();
+
+        $response = new JsonResponse(
+            $jsonResponse, 
+            $this->custoResponse->getStatusCode(), 
+            array(), 
+            false); // content, status, headers, false if already json
+        return $response;
 
 
     }
