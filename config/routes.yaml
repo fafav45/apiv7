@@ -78,7 +78,6 @@ teacherGetAll:
 
 teacherGetById:
   path: /api/v7/teachers/{id}
-  # controller: App\Controller\TeacherController::teacherGetById
   controller: App\Controller\TeacherController::teacherGetAll
   methods: [GET]
   requirements:
@@ -97,7 +96,35 @@ teachersDelete:
   methods: [DELETE]
   requirements:
     id: '\d+'
-    
+
+# --------------------- students  ----------------------
+
+studentGet:
+  path: /api/v7/students
+  controller: App\Controller\StudentController::studentGet
+  methods: [GET]
+
+studentGetById:
+  path: /api/v7/students/{id}
+  controller: App\Controller\StudentController::studentGetById
+  methods: [GET]
+  requirements:
+    id: '\d+'
+
+studentPut:
+  path: /api/v7/students/{id}/{type}/{value}
+  controller: App\Controller\StudentController::studentPut
+  methods: [PUT]
+  requirements:
+    id: '\d+'
+
+studentDelete:
+  path: /api/v7/students/{id}
+  controller: App\Controller\StudentController::studentDelete
+  methods: [DELETE]
+  requirements:
+    id: '\d+'
+
 # ------------------ documentation  --------------------
 
 # symfony 5.4.20, version mini pour cette annotation: 5.3

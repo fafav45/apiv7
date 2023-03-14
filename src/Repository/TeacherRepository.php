@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use PDO;
 use App\Entity\Teacher;
+use App\Manager\FileManager;
 use App\Manager\TeacherManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -70,6 +71,17 @@ class TeacherRepository extends ServiceEntityRepository
         $teacherMgr = new TeacherManager($this->cnx);
         $iStatus = $teacherMgr->apiTeacherPut($id, $type, $value, $typeOf);
         return $iStatus;
+    }
+
+    public function teachersDelete(int $id) : int {
+        // on tente de supprimer, on instancie ProfManager & FichiersManager
+        $myProfMgr = new TeacherManager($this->cnx);
+        $myFileMgr = new FileManager($this->cnx);
+        $bStatus1 = $myProfMgr->apiDelete($id);
+        $bStatus2 = $myFileMgr->apiDeleteAllTeacher($id, $this->cnx->getSubDomain());
+        unset($myProfMgr);unset($myFileMgr);
+        $s = $bStatus1 && $bStatus2;
+        return $s;
     }
  
     public function setConnexion(Connexion $arg)

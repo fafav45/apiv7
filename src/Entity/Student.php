@@ -3,20 +3,24 @@
 namespace App\Entity;
 
 use OpenApi\Annotations as OA;
-use OpenApi\Annotations\Schema;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Schema(
+ * @OA\Schema(
  *  schema="Students",
  * 	title="Students",
  * 	description="Student Model"
  * )
+ * @ORM\Entity(repositoryClass=TeacherRepository::class)
  */
 class Student
 {
 
 	/**
 	 * @OA\Property(type="integer")
+	 * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
 	 */
 	private $id;
 

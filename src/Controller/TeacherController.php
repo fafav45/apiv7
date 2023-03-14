@@ -414,10 +414,28 @@ public function teachersPut(Request $request): Response {
         return $this->returnNotAuthorized($sIsAuthorized);
     } else {
 
-        // TODO
+        $id = (int)$request->attributes->get('id', 0);
+        $this->logger->info("id: $id");
+        $this->custoResponse->setId($id);
 
-        return new Response;
+        $teacherStatus = $this->teacherRepository->teachersDelete($id);
+        if ($teacherStatus === false) {
+            //$desc = $this->_bdd->errorInfo(); // array
+            $this->custoResponse->setErrorDescription("unknown");
+            $this->custoResponse->setErrorType('database error');
+            $this->custoResponse->setStatusCode(304); 
+        } else {
+            $this->custoResponse->setStatusCode(Response::HTTP_OK);
+            $this->custoResponse->setCount(1);
+        }
+        $jsonResponse = $this->custoResponse->getJsonResponse();
 
+        $response = new JsonResponse(
+            $jsonResponse, 
+            $this->custoResponse->getStatusCode(), 
+            array(), 
+            false); // content, status, headers, false if already json
+        return $response;
 
     }
     }

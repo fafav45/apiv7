@@ -8,14 +8,7 @@ use App\Manager\SchoolManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
-/**
- * @extends ServiceEntityRepository<School>
- *
- * @method School|null find($id, $lockMode = null, $lockVersion = null)
- * @method School|null findOneBy(array $criteria, array $orderBy = null)
- * @method School[]    findAll()
- * @method School[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+
 class SchoolRepository extends ServiceEntityRepository
 {
     protected $bdd;

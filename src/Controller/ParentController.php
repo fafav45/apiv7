@@ -17,13 +17,15 @@ class ParentController extends AbstractController
     protected $logger;
     protected $custoResponse; // AMLResponse
 
+    protected $request;
+
     public function __construct()
     {
         if (!defined('SECRET')) {
             define("SECRET", "ed8e871108709b93b0b200ddf19b11be14c417e75efed9d21078efe6efef4880");
         }
-        $request = Request::createFromGlobals();
-        $this->custoResponse = new AMLResponse($request);
+        $this->request = Request::createFromGlobals();
+        $this->custoResponse = new AMLResponse($this->request);
     }
 
     protected function getAccessToken(): ?AccessToken
@@ -99,4 +101,12 @@ class ParentController extends AbstractController
         $response = new JsonResponse($jsonResponse, Response::HTTP_UNAUTHORIZED, array(), false); // content, status, headers, false if already json
         return $response;
     } // end function
+
+    /**
+     * Get the value of request
+     */ 
+    public function getRequest()
+    {
+        return $this->request;
+    }
 }

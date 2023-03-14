@@ -70,7 +70,7 @@ class DocController extends AbstractController
 
         /*
         * from v7
-        * ./vendor/bin/openapi src/entity src/controller -f json -o -o ./swagger/swagger.json
+        * ./vendor/bin/openapi src/entity src/controller -f json -o ./swagger/swagger.json
         */
     }
 
