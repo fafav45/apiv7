@@ -125,6 +125,142 @@ studentDelete:
   requirements:
     id: '\d+'
 
+# --------------------- entries  ----------------------
+
+entryGet:
+  path: /api/v7/entries
+  controller: App\Controller\EntryController::entryGet
+  methods: [GET]
+
+duetGet:
+  path: /api/v7/duets
+  controller: App\Controller\EntryController::duetGet
+  methods: [GET]
+
+groupGet:
+  path: /api/v7/groups
+  controller: App\Controller\EntryController::groupGet
+  methods: [GET]
+
+individualGet:
+  path: /api/v7/individuals
+  controller: App\Controller\EntryController::individualGet
+  methods: [GET]
+
+entryGetById:
+  path: /api/v7/entries/{id}/{nature}
+  controller: App\Controller\EntryController::entryGetById
+  methods: [GET]
+  requirements:
+    id: '\d+'
+    nature: "[a-zA-Z]+"
+
+individualGetById:
+  path: /api/v7/individuals/{id}
+  controller: App\Controller\EntryController::individualGetById
+  methods: [GET]
+  requirements:
+    id: '\d+'
+
+duetGetById:
+  path: /api/v7/duets/{id}
+  controller: App\Controller\EntryController::duetGetById
+  methods: [GET]
+  requirements:
+    id: '\d+'
+
+groupGetById:
+  path: /api/v7/groups/{id}
+  controller: App\Controller\EntryController::groupGetById
+  methods: [GET]
+  requirements:
+    id: '\d+'
+
+entryPut:
+  path: api/v7/entries/{id}/{nature}/{type}/{value}
+  controller: App\Controller\EntryController::entryPut
+  methods: [PUT]
+  requirements:
+    id: '\d+'
+    nature: "[a-zA-Z]+"
+    type: "[a-zA-Z]+"
+
+individualPut:
+  path: api/v7/individuals/{id}/{type}/{value}
+  controller: App\Controller\EntryController::individualPut
+  methods: [PUT]
+  requirements:
+    id: '\d+'
+    type: "[a-zA-Z]+"
+
+duetPut:
+  path: api/v7/duets/{id}/{type}/{value}
+  controller: App\Controller\EntryController::duetPut
+  methods: [PUT]
+  requirements:
+    id: '\d+'
+    type: "[a-zA-Z]+"
+
+groupPut:
+  path: api/v7/groups/{id}/{type}/{value}
+  controller: App\Controller\EntryController::groupPut
+  methods: [PUT]
+  requirements:
+    id: '\d+'
+    type: "[a-zA-Z]+"
+
+entryDelete:
+  path: api/v7/entries/{id}/{nature}
+  controller: App\Controller\EntryController::entryDelete
+  methods: [DELETE]
+  requirements:
+    id: '\d+'
+    nature: "[a-zA-Z]+"
+
+individualDelete:
+  path: api/v7/individuals/{id}
+  controller: App\Controller\EntryController::individualDelete
+  methods: [DELETE]
+  requirements:
+    id: '\d+'
+
+duetDelete:
+  path: api/v7/duets/{id}
+  controller: App\Controller\EntryController::duetDelete
+  methods: [DELETE]
+  requirements:
+    id: '\d+'
+
+groupDelete:
+  path: api/v7/groups/{id}
+  controller: App\Controller\EntryController::groupDelete
+  methods: [DELETE]
+  requirements:
+    id: '\d+'
+
+# -------------------- download  --------------------
+
+downloadGet:
+  path: api/v7/download/{id}
+  controller: App\Controller\DownloadController::downloadGet
+  methods: [GET]
+  requirements:
+    id: '\d+'
+
+# ------------------ FollowUpTool  --------------------
+
+followUpTool:
+  path: api/v7/followUpToolVersion
+  controller: App\Controller\FollowUpToolController::followUpTool
+  methods: [GET]
+
+# -------------------- dashboard  --------------------
+
+dashboard:
+  path: api/v7/dashboard
+  controller: App\Controller\DashboardController::dashboard
+  methods: [GET]
+
 # ------------------ documentation  --------------------
 
 # symfony 5.4.20, version mini pour cette annotation: 5.3

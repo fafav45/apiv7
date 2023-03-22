@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use OpenApi\Annotations as OA;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @OA\Schema(
@@ -10,12 +11,15 @@ use OpenApi\Annotations as OA;
  * 	title="Entries",
  * 	description="Entries Model"
  * )
+ * @ORM\Entity(repositoryClass=EntryRepository::class)
  */
 class Entry
 {
-
 	/**
-	 * @OA\Property(type="integer")
+	 * @OA\Property(type="integer")	
+	 * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
 	 */
 	private $id;
 

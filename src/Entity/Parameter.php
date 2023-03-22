@@ -135,7 +135,7 @@ private $id;
      return count($this->fichier_ini[$arg_gr]);
   }
   
-  function array_groupe($arg_gr=false)
+  function array_groupe($arg_gr="inscriptions")
   {
      if($arg_gr===false)
      $arg_gr=$this->groupe;

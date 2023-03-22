@@ -13,6 +13,7 @@ class Connexion
     private $confRegion;
     private $language;
     private $iniRegion;
+    private $iniAdmin;
 
 
     public function __construct()
@@ -21,6 +22,7 @@ class Connexion
         $this->subDomain = $this->getCountryDomain();
         $this->confRegion = $this->myrootDir.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.$this->subDomain."_conf.php";
         $this->iniRegion = $this->myrootDir.DIRECTORY_SEPARATOR.'parametres'.DIRECTORY_SEPARATOR.$this->subDomain.".ini";
+        $this->iniAdmin = $this->myrootDir.DIRECTORY_SEPARATOR."inscriptions-admin.ini";
 
         if (!file_exists($this->confRegion)) {
             dd("Region Configuration file does not exist !");
@@ -59,6 +61,11 @@ class Connexion
     public function getIniRegion()
     {
         return $this->iniRegion;
+    }
+
+    public function getIniAdmin()
+    {
+        return $this->iniAdmin;
     }
 
     public function getMyrootDir()

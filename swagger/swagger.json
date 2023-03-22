@@ -58,6 +58,1521 @@
                 ]
             }
         },
+        "/dashboard": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "get contest main indicators",
+                "operationId": "dashboard",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Dashboard"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/entries/{id}/{nature}": {
+            "get": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "entry identified by its Id and nature",
+                "operationId": "entryGetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of entry",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "nature",
+                        "in": "path",
+                        "description": "nature of entry",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "individual",
+                                "duet",
+                                "group"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Entries"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "delete an entry",
+                "operationId": "entryDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "entry id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "nature",
+                        "in": "path",
+                        "description": "entry nature",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "individual",
+                                "duet",
+                                "group"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete entry reponse",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/individuals/{id}": {
+            "get": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "individual entry identified by its Id",
+                "operationId": "individualGetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of entry",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Entries"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "delete an entry",
+                "operationId": "entryDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "entry id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete entry reponse",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/duets/{id}": {
+            "get": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "duet entry identified by its Id",
+                "operationId": "duetGetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of entry",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Entries"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "delete an entry",
+                "operationId": "duetDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "entry id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete entry reponse",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/groups/{id}": {
+            "get": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "group entry identified by its Id",
+                "operationId": "groupGetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of entry",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Entries"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "delete an entry",
+                "operationId": "groupDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "entry id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete entry reponse",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/entries": {
+            "get": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "Returns a list of entries",
+                "description": "Optional: ?teacherid={id}, ?studentid={id}, ?opt=musicValidated, ?opt=music, ?opt=sumOnly, ?opt=java, ?opt=followUp, ?opt=csv",
+                "operationId": "entryGet",
+                "parameters": [
+                    {
+                        "name": "teacherid",
+                        "in": "query",
+                        "description": "id teacher",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "studentid",
+                        "in": "query",
+                        "description": "id student",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "opt",
+                        "in": "query",
+                        "description": "option",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "followUp",
+                                "java",
+                                "music",
+                                "musicValidated",
+                                "sumOnly",
+                                "national",
+                                "csv"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Entries"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/duets": {
+            "get": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "Returns a list of duets",
+                "description": "Optional: ?teacherid={id}, ?studentid={id}, ?musicValidated=1, music=1, sumOnly=1, java=1",
+                "operationId": "duetGet",
+                "parameters": [
+                    {
+                        "name": "teacherid",
+                        "in": "query",
+                        "description": "id teacher",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "studentid",
+                        "in": "query",
+                        "description": "id student",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "opt",
+                        "in": "query",
+                        "description": "option",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "java",
+                                "music",
+                                "musicValidated",
+                                "sumOnly",
+                                "national"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Entries"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/groups": {
+            "get": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "Returns a list of groups",
+                "description": "Optional: ?teacherid={id}, ?studentid={id}, ?musicValidated=1, music=1, sumOnly=1, java=1",
+                "operationId": "groupGet",
+                "parameters": [
+                    {
+                        "name": "teacherid",
+                        "in": "query",
+                        "description": "id teacher",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "studentid",
+                        "in": "query",
+                        "description": "id student",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "opt",
+                        "in": "query",
+                        "description": "option",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "java",
+                                "music",
+                                "musicValidated",
+                                "sumOnly",
+                                "national"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Entries"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/individuals": {
+            "get": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "Returns a list of individuels",
+                "description": "Optional: ?teacherid={id}, ?studentid={id}, ?musicValidated=1, music=1, sumOnly=1, java=1",
+                "operationId": "individualGet",
+                "parameters": [
+                    {
+                        "name": "teacherid",
+                        "in": "query",
+                        "description": "id teacher",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "studentid",
+                        "in": "query",
+                        "description": "id student",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "opt",
+                        "in": "query",
+                        "description": "option",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "java",
+                                "music",
+                                "musicValidated",
+                                "sumOnly",
+                                "national"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Entries"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/entries/{id}/{nature}/{type}/{value}": {
+            "put": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "update an entry",
+                "operationId": "entryPut",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "entry id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "nature",
+                        "in": "path",
+                        "description": "nature of entry",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "individual",
+                                "duet",
+                                "group"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "operation type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "valmp3",
+                                "comment"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "in": "path",
+                        "description": "operation value",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Not Modified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/individuals/{id}/{type}/{value}": {
+            "put": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "update an individual entry",
+                "operationId": "individualPut",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "entry id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "operation type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "valmp3",
+                                "comment"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "in": "path",
+                        "description": "operation value",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Not Modified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/duets/{id}/{type}/{value}": {
+            "put": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "update an duet entry",
+                "operationId": "duetPut",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "entry id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "operation type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "valmp3",
+                                "comment"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "in": "path",
+                        "description": "operation value",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Not Modified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/groups/{id}/{type}/{value}": {
+            "put": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "update an group entry",
+                "operationId": "groupPut",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "entry id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "operation type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "valmp3",
+                                "comment"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "in": "path",
+                        "description": "operation value",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "304": {
+                        "description": "Not Modified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/files": {
             "get": {
                 "tags": [
@@ -294,6 +1809,36 @@
                                             "$ref": "#/components/schemas/Response"
                                         }
                                     ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/followUpToolVersion": {
+            "get": {
+                "tags": [
+                    "FollowUpTool"
+                ],
+                "summary": "Returns the last published version of followup tool",
+                "operationId": "followUpTool",
+                "responses": {
+                    "200": {
+                        "description": "Version",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "version",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FollowUpTool"
+                                    }
                                 }
                             }
                         }
@@ -1086,6 +2631,25 @@
     },
     "components": {
         "schemas": {
+            "FollowUpTool": {
+                "title": "FollowUpTool",
+                "description": "FollowUpTool Model",
+                "properties": {
+                    "majorVersion": {
+                        "description": "Major Version",
+                        "type": "integer"
+                    },
+                    "minorVersion": {
+                        "description": "Minor Version",
+                        "type": "integer"
+                    },
+                    "version": {
+                        "description": "Version",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "Login": {
                 "title": "Login",
                 "description": "Login Model"
@@ -1120,6 +2684,51 @@
                     },
                     "city": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Dashboard": {
+                "title": "Dashboard",
+                "description": "Dashboard Model",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nb_candidates": {
+                        "type": "integer"
+                    },
+                    "nb_teachers": {
+                        "description": "number of teachers",
+                        "type": "integer"
+                    },
+                    "nb_individuals": {
+                        "description": "number of individuals",
+                        "type": "integer"
+                    },
+                    "nb_duets": {
+                        "description": "number of duets",
+                        "type": "integer"
+                    },
+                    "nb_groups": {
+                        "description": "number of groups",
+                        "type": "integer"
+                    },
+                    "nb_total_groups": {
+                        "description": "total number of candidates in groups",
+                        "type": "integer"
+                    },
+                    "nb_schools": {
+                        "description": "number of used schools without free candidates",
+                        "type": "integer"
+                    },
+                    "countNbCandidateMembership": {
+                        "description": "number of candidates membership",
+                        "type": "integer"
+                    },
+                    "countNbTeacherMembership": {
+                        "description": "number of teachers membership",
+                        "type": "integer"
                     }
                 },
                 "type": "object"

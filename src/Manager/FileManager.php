@@ -264,7 +264,7 @@ class FileManager
     {
         $sql = "SELECT * FROM fichiers where id=$id";
 
-        $domaine=$this->_domain ;
+        //$domaine=$this->_domain ;
 
         $q = $this->_db->prepare($sql);
         $q->execute();
@@ -275,23 +275,25 @@ class FileManager
 
         if ($myArray !== null && count($myArray) === 1) {
             $theItem = $myArray[0];
+            //$myArrayTranslated = $this->replaceKeys($theItem, self::NEWKEYS);
             //
-            if ($withMD5) {
-                $myrootDir = $_SERVER['DOCUMENT_ROOT'];
+            // if ($withMD5) {
+            //     $myrootDir = $_SERVER['DOCUMENT_ROOT'];
 
-                $file = $myrootDir. DIRECTORY_SEPARATOR . "Files" . DIRECTORY_SEPARATOR . $domaine . DIRECTORY_SEPARATOR . $theItem['uniq_id'] ;
-                if (file_exists($file)) {
-                    $md5 = md5_file($file);
-                } else {
-                    $md5 = 'file does not exist...';
-                }
-                $theItem['md5'] = $md5;
-            }
+            //     $file = $myrootDir. DIRECTORY_SEPARATOR . "Files" . DIRECTORY_SEPARATOR . $domaine . DIRECTORY_SEPARATOR . $theItem['uniq_id'] ;
+            //     if (file_exists($file)) {
+            //         $md5 = md5_file($file);
+            //     } else {
+            //         $md5 = 'file does not exist...';
+            //     }
+            //     $theItem['md5'] = $md5;
+            // }
             array_push($returnArray, $theItem);
+            $myArrayTranslated = $this->replaceKeys($returnArray, self::NEWKEYS);
         } else {
             $theItem = null;
+            $myArrayTranslated = null;
         }
-        $myArrayTranslated = $this->replaceKeys($returnArray, self::NEWKEYS);
         return $myArrayTranslated;
     }
 
