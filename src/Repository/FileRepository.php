@@ -9,23 +9,17 @@ use App\Repository\Connexion;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
-/**
- * @extends ServiceEntityRepository<File>
- *
- * @method File|null find($id, $lockMode = null, $lockVersion = null)
- * @method File|null findOneBy(array $criteria, array $orderBy = null)
- * @method File[]    findAll()
- * @method File[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class FileRepository extends ServiceEntityRepository
+
+//class FileRepository extends ServiceEntityRepository
+class FileRepository
 {
     protected $bdd;
     protected $cnx;
 
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, File::class);
-    }
+    // public function __construct(ManagerRegistry $registry)
+    // {
+    //     parent::__construct($registry, File::class);
+    // }
 
 
     //public function findAllFiles(Connexion $cnx) : ?array{

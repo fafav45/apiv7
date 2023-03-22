@@ -11,15 +11,16 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 
 
-class DashboardRepository extends ServiceEntityRepository
+//class DashboardRepository extends ServiceEntityRepository
+class DashboardRepository
 {
     protected $bdd;
     protected $cnx;
 
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Dashboard::class);
-    }
+    // public function __construct(ManagerRegistry $registry)
+    // {
+    //     parent::__construct($registry, Dashboard::class);
+    // }
     
 
     public function dashboard(Connexion $cnx): ?array

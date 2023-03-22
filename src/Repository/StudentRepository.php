@@ -12,7 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 
-class StudentRepository extends ServiceEntityRepository
+//class StudentRepository extends ServiceEntityRepository
+class StudentRepository
 {
     protected $bdd;
     protected $cnx;
@@ -31,10 +32,10 @@ class StudentRepository extends ServiceEntityRepository
 	"Phone number","MP3_received","Day","Entry number","Remark",
 	"Entry hour","Summon hour");
 
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Student::class);
-    }
+    // public function __construct(ManagerRegistry $registry)
+    // {
+    //     parent::__construct($registry, Student::class);
+    // }
     
     // studentGetAll($this->startDate, $this->birthdayValidated, $this->photoValidated, $this->member , $this->boardMember, false, $this->usedOnly);
     public function studentGetAll(?string $startDate, bool $birthdayValidated, bool $photoValidated, bool $member, bool $boardMember, bool $usedOnly) : ?array {

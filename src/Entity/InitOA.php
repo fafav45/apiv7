@@ -18,8 +18,12 @@ class InitOA {
  *      url="http://ins-2023.aml.fr/api/v7",
  *      description="REST APIs CND"
  * )
-  * @OA\Server(
+ * @OA\Server(
  *      url="https://ins-demo.cnd.info/api/v7",
+ *      description="Site Demo"
+ * )
+  * @OA\Server(
+ *      url="https://ins-bs.obamalou.fr/api/v7",
  *      description="Site Demo"
  * )
  * @OA\ExternalDocumentation(

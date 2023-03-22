@@ -12,6 +12,10 @@
         {
             "url": "https://ins-demo.cnd.info/api/v7",
             "description": "Site Demo"
+        },
+        {
+            "url": "https://ins-bs.obamalou.fr/api/v7",
+            "description": "Site Demo"
         }
     ],
     "paths": {

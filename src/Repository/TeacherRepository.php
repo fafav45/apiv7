@@ -9,19 +9,17 @@ use App\Manager\TeacherManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
-/**
- * @extends ServiceEntityRepository<Teacher>
- *
- */
-class TeacherRepository extends ServiceEntityRepository
+
+//class TeacherRepository extends ServiceEntityRepository
+class TeacherRepository
 {
     protected $bdd;
     protected $cnx;
 
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Teacher::class);
-    }
+    // public function __construct(ManagerRegistry $registry)
+    // {
+    //     parent::__construct($registry, Teacher::class);
+    // }
     
     /**
      * apiGetList

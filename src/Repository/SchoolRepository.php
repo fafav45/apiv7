@@ -9,15 +9,16 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 
-class SchoolRepository extends ServiceEntityRepository
+//class SchoolRepository extends ServiceEntityRepository
+class SchoolRepository
 {
     protected $bdd;
     protected $cnx;
 
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, School::class);
-    }
+    // public function __construct(ManagerRegistry $registry)
+    // {
+    //     parent::__construct($registry, School::class);
+    // }
     
     /**
      * findAllSchools

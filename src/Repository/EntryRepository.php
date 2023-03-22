@@ -12,7 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 
-class EntryRepository extends ServiceEntityRepository
+//class EntryRepository extends ServiceEntityRepository
+class EntryRepository
 {
     protected $bdd;
     protected $cnx;
@@ -32,11 +33,11 @@ class EntryRepository extends ServiceEntityRepository
 	"Phone number","MP3_received","Day","Entry number","Remark",
 	"Entry hour","Summon hour");
 
-    public function __construct(ManagerRegistry $registry, LoggerInterface $logger)
-    {
-        parent::__construct($registry, Entry::class);
-        $this->logger = $logger;
-    }
+    // public function __construct(ManagerRegistry $registry, LoggerInterface $logger)
+    // {
+    //     parent::__construct($registry, Entry::class);
+    //     $this->logger = $logger;
+    // }
     
 
     public function entryGetAll(bool $musicValidated, bool $countOnly=false, bool $sumOnly=false, string $nature, int $teacher_id=0, int $student_id=0, int $maxEntries=1000) : ?array {

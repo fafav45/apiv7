@@ -7,23 +7,17 @@ use App\Entity\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
-/**
- * @extends ServiceEntityRepository<Parameter>
- *
- * @method School|null find($id, $lockMode = null, $lockVersion = null)
- * @method School|null findOneBy(array $criteria, array $orderBy = null)
- * @method School[]    findAll()
- * @method School[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class ParamRepository extends ServiceEntityRepository
+
+//class ParamRepository extends ServiceEntityRepository
+class ParamRepository
 {
     protected $bdd;
     protected $cnx;
 
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Parameter::class);
-    }
+    // public function __construct(ManagerRegistry $registry)
+    // {
+    //     parent::__construct($registry, Parameter::class);
+    // }
     
     // function param
 
