@@ -53,6 +53,16 @@ class ContactController extends ParentController
 *       )
 *   ),
 *   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Contacts"),
+*		        @OA\Schema(ref="#/components/schemas/Response"),
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
 *       response="default",
 *       description="Unexpected error",
 *       @OA\JsonContent(ref="#/components/schemas/Response")

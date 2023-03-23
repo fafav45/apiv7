@@ -33,9 +33,6 @@ class DashboardController extends ParentController
 *   path="/dashboard",
 *   summary="get contest main indicators",
 *   tags={"Dashboard"},
-*     security={
-*         {"bearer": {}}
-*     },
 *   operationId="dashboard",
 *   @OA\Response(
 *       response=200,

@@ -7,7 +7,6 @@ use OpenApi\Annotations\Put;
 use Psr\Log\LoggerInterface;
 use App\Repository\Connexion;
 use OpenApi\Annotations as OA;
-use App\Manager\TeacherManager;
 use OpenApi\Annotations\Delete;
 use App\Repository\TeacherRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,6 +62,15 @@ class TeacherController extends ParentController
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Teachers"),
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
 * 	        }
 *       )
@@ -160,6 +168,15 @@ public function teacherGetAll(Request $request): Response {
 *       )
 *   ),
 *   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
 *       response="default",
 *       description="Unexpected error",
 *       @OA\JsonContent(
@@ -218,6 +235,15 @@ public function teacherGetById(Request $request): Response {
 *       response=200,
 *       description="OK",
 *       @OA\JsonContent(ref="#/components/schemas/Response"),
+*   ),
+*   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
 *   ),
 *   @OA\Response(
 *       response=304,
@@ -388,6 +414,15 @@ public function teachersPut(Request $request): Response {
 *       response=200,
 *       description="OK",
 *       @OA\JsonContent(ref="#/components/schemas/Response"),
+*   ),
+*   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
 *   ),
 *   @OA\Response(
 *       response="default",

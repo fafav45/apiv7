@@ -68,6 +68,15 @@ class SchoolController extends ParentController
 *       )
 *   ),
 *   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
 *       response="default",
 *       description="Unexpected error",
 *       @OA\JsonContent(
@@ -151,6 +160,15 @@ class SchoolController extends ParentController
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(type="object", ref="#/components/schemas/Schools"),
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
 * 	        }
 *       )

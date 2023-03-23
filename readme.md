@@ -11,9 +11,12 @@
 
 ` cd v7
 
+** update obamalou
+
+` git pull https://github.com/fafav45/apiv7.git
 ` composer update
 
 dans .env remplacer
 APP_ENV=dev par APP_ENV=prod
 
-` php bin/console cache:clear
+` php bin/console cache:clear --env=prod

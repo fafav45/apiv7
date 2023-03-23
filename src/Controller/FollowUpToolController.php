@@ -57,9 +57,6 @@ protected $version = '';
 *   path="/followUpToolVersion",
 *   summary="Returns the last published version of followup tool",
 *   tags={"FollowUpTool"},
-*     security={
-*         {"bearer": {}}
-*     },
 *   operationId="followUpTool",
 *   @OA\Response(
 *       response="200",

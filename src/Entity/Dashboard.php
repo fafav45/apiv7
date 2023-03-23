@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use OpenApi\Annotations as OA;
 use OpenApi\Annotations\Schema;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Schema(
@@ -12,15 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  * 	title="Dashboard",
  * 	description="Dashboard Model"
  * )
-* @ORM\Entity(repositoryClass=DashboardRepository::class)
  */
 class Dashboard
 {
 	/**
 	 * @OA\Property(type="integer")	
-	 * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
 	 */
 	private $id;
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use Psr\Log\LoggerInterface;
 use App\Repository\Connexion;
 use App\Repository\DownloadRepository;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,6 +39,53 @@ class DownloadController extends parentController
 
     }
 
+/**
+* @OA\Get(
+*   path="/download/{id}",
+*   summary="Downloads a file identified by its id",
+*   tags={"Download"},
+*     security={
+*         {"bearer": {}}
+*     },
+*   operationId="downloadGet",
+*   @OA\Parameter(
+*       name="id",
+*       in="path",
+*       description="get by Id",
+*       required=true,
+*       @OA\Schema(
+*           type="integer"
+*       )
+*   ),
+*   @OA\Response(
+*       response=200,
+*       description="OK",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response"),
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
+*       response="default",
+*       description="Unexpected error",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   )
+* )
+*/
     public function downloadGet(Request $request) : Response {
 
         $at = $request->headers->get('access-token'); // string|null

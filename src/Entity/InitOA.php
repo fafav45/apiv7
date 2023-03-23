@@ -2,9 +2,6 @@
 
 namespace App\Entity;
 
-//use OA\Info;
-//use OA\Server;
-//use OA\ExternalDocumentation;
 use OpenApi\Annotations as OA;
 
 class InitOA {

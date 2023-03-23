@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use OpenApi\Annotations\Get;
-use OpenApi\Annotations\Delete;
-use OpenApi\Annotations\Put;
 use OpenApi\Annotations as OA;
 use Psr\Log\LoggerInterface;
 use App\Repository\Connexion;
@@ -38,9 +36,6 @@ class ParamController extends ParentController
 *   path="/params",
 *   summary="Returns a list of the contest parameters",
 *   tags={"Param"},
-*     security={
-*         {"bearer": {}}
-*     },
 *   operationId="getAllParams",
 *   @OA\Response(
 *       response="200",
@@ -70,9 +65,6 @@ class ParamController extends ParentController
 *   path="/params/0/{name}",
 *   summary="Returns a contest parameter identified by its name",
 *   tags={"Param"},
-*     security={
-*         {"bearer": {}}
-*     },
 *   operationId="getParamByName",
 *   @OA\Parameter(
 *       name="name",

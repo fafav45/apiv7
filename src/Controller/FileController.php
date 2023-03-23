@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-//use OA\Get;
-//use OA\Delete;
 use OpenApi\Annotations\Get;
 use OpenApi\Annotations\Delete;
 use OpenApi\Annotations as OA;
@@ -65,14 +63,6 @@ class FileController extends ParentController
         //dd($cnx);
     }
 
-    public function index(): JsonResponse
-    {
-        return new JsonResponse([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/FileController.php',
-        ]);
-    }
-
 
     /**
     * @Get(
@@ -100,6 +90,15 @@ class FileController extends ParentController
     *       @OA\JsonContent(
     * 	        allOf={
     *		        @OA\Schema(type="object", ref="#/components/schemas/Files"),
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=401,
+    *       description="UNAUTHORIZED",
+    *       @OA\JsonContent(
+    * 	        allOf={
     *		        @OA\Schema(ref="#/components/schemas/Response")
     * 	        }
     *       )
@@ -189,6 +188,15 @@ class FileController extends ParentController
     *       @OA\JsonContent(
     * 	        allOf={
     *		        @OA\Schema(type="object", ref="#/components/schemas/Files"),
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=401,
+    *       description="UNAUTHORIZED",
+    *       @OA\JsonContent(
+    * 	        allOf={
     *		        @OA\Schema(ref="#/components/schemas/Response")
     * 	        }
     *       )
@@ -291,6 +299,15 @@ class FileController extends ParentController
     *       response=200,
     *       description="OK",
     *       @OA\JsonContent(ref="#/components/schemas/Response"),
+    *   ),
+    *   @OA\Response(
+    *       response=401,
+    *       description="UNAUTHORIZED",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
     *   ),
     *   @OA\Response(
     *       response="default",
@@ -397,6 +414,33 @@ class FileController extends ParentController
     *       response=200,
     *       description="OK",
     *       @OA\JsonContent(ref="#/components/schemas/Response"),
+    *   ),
+    *   @OA\Response(
+    *       response=401,
+    *       description="UNAUTHORIZED",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=400,
+    *       description="BAD_REQUEST",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=404,
+    *       description="NOT_FOUND",
+    *       @OA\JsonContent(
+    * 	        allOf={
+    *		        @OA\Schema(ref="#/components/schemas/Response")
+    * 	        }
+    *       )
     *   ),
     *   @OA\Response(
     *       response="default",

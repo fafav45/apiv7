@@ -109,6 +109,15 @@ class StudentController extends ParentController
 *       )
 *   ),
 *   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
 *       response="default",
 *       description="Unexpected error",
 *       @OA\JsonContent(
@@ -188,6 +197,15 @@ class StudentController extends ParentController
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Students"),
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
 * 	        }
 *       )
@@ -309,6 +327,15 @@ class StudentController extends ParentController
 *       )
 *   ),
 *   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
 *       response=304,
 *       description="Not Modified",
 *       @OA\JsonContent(
@@ -414,6 +441,15 @@ class StudentController extends ParentController
 *       )
 *   ),
 *   @OA\Response(
+*       response=401,
+*       description="UNAUTHORIZED",
+*       @OA\JsonContent(
+* 	        allOf={
+*		        @OA\Schema(ref="#/components/schemas/Response")
+* 	        }
+*       )
+*   ),
+*   @OA\Response(
 *       response="default",
 *       description="Unexpected error",
 *       @OA\JsonContent(
@@ -464,5 +500,4 @@ class StudentController extends ParentController
 
         }
     }
-
 }

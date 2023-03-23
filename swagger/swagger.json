@@ -44,6 +44,23 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Contacts"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "Unexpected error",
                         "content": {
@@ -79,6 +96,70 @@
                                         {
                                             "$ref": "#/components/schemas/Dashboard"
                                         },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/download/{id}": {
+            "get": {
+                "tags": [
+                    "Download"
+                ],
+                "summary": "Downloads a file identified by its id",
+                "operationId": "downloadGet",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "get by Id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
                                         {
                                             "$ref": "#/components/schemas/Response"
                                         }
@@ -159,8 +240,8 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "401": {
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -173,8 +254,8 @@
                             }
                         }
                     },
-                    "401": {
-                        "description": "Unauthorized",
+                    "400": {
+                        "description": "Bad Request",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -255,7 +336,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -341,7 +422,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -408,7 +489,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -494,7 +575,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -561,7 +642,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -647,7 +728,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -714,7 +795,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -814,7 +895,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -912,7 +993,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1010,7 +1091,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1108,7 +1189,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1213,7 +1294,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1318,7 +1399,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1423,7 +1504,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1528,7 +1609,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1620,6 +1701,20 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "Unexpected error",
                         "content": {
@@ -1690,6 +1785,20 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "Unexpected error",
                         "content": {
@@ -1735,6 +1844,48 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "BAD_REQUEST",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT_FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -1803,6 +1954,20 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "Unexpected error",
                         "content": {
@@ -1847,12 +2012,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/login": {
@@ -1901,12 +2061,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/params/0/{name}": {
@@ -1942,12 +2097,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/schools": {
@@ -1984,6 +2134,20 @@
                                         {
                                             "$ref": "#/components/schemas/Schools"
                                         },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
                                         {
                                             "$ref": "#/components/schemas/Response"
                                         }
@@ -2041,6 +2205,20 @@
                                         {
                                             "$ref": "#/components/schemas/Schools"
                                         },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
                                         {
                                             "$ref": "#/components/schemas/Response"
                                         }
@@ -2119,6 +2297,20 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "Unexpected error",
                         "content": {
@@ -2159,6 +2351,20 @@
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2242,6 +2448,20 @@
                                         {
                                             "$ref": "#/components/schemas/Students"
                                         },
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
                                         {
                                             "$ref": "#/components/schemas/Response"
                                         }
@@ -2335,6 +2555,20 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "304": {
                         "description": "Not Modified",
                         "content": {
@@ -2412,6 +2646,20 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "Unexpected error",
                         "content": {
@@ -2470,6 +2718,20 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "default": {
                         "description": "Unexpected error",
                         "content": {
@@ -2515,6 +2777,20 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -2592,6 +2868,20 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Response"
+                                        }
+                                    ]
                                 }
                             }
                         }

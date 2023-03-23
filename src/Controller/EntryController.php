@@ -177,8 +177,8 @@ class EntryController extends ParentController
 *       )
 *   ),
 *   @OA\Response(
-*       response=400,
-*       description="Bad Request",
+*       response=401,
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -186,8 +186,8 @@ class EntryController extends ParentController
 *       )
 *   ),
 *   @OA\Response(
-*       response=401,
-*       description="Unauthorized",
+*       response=400,
+*       description="Bad Request",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -295,7 +295,7 @@ class EntryController extends ParentController
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -364,7 +364,7 @@ class EntryController extends ParentController
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -432,7 +432,7 @@ public function duetGetById(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -512,7 +512,7 @@ public function groupGetById(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -640,7 +640,7 @@ public function groupGetById(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -719,7 +719,7 @@ public function groupGetById(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -798,7 +798,7 @@ public function groupGet(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -885,7 +885,7 @@ public function individualGet(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -1049,7 +1049,7 @@ public function individualGet(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -1139,7 +1139,7 @@ public function individualGet(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -1228,7 +1228,7 @@ public function duetPut(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -1307,7 +1307,7 @@ public function groupPut(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -1398,7 +1398,7 @@ public function groupPut(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -1457,7 +1457,7 @@ public function groupPut(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
@@ -1516,7 +1516,7 @@ public function groupPut(Request $request) : ?Response {
 *   ),
 *   @OA\Response(
 *       response=401,
-*       description="Unauthorized",
+*       description="UNAUTHORIZED",
 *       @OA\JsonContent(
 * 	        allOf={
 *		        @OA\Schema(ref="#/components/schemas/Response")
